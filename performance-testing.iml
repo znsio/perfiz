@@ -11,6 +11,13 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="scala-sdk-2.13.4" level="application" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.scala-lang:scala-library:2.12.8" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: io.gatling:gatling-core:3.0.2" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.simpleflatmapper:lightning-csv:6.0.13" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.simpleflatmapper:sfm-util:jdk9:6.0.13" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.simpleflatmapper:sfm-util:6.0.13" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: io.pebbletemplates:pebble:3.0.6" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: net.sf.saxon:Saxon-HE:9.9.0-2" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: com.intuit.karate:karate-apache:0.9.6" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: com.intuit.karate:karate-core:0.9.6" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: com.jayway.jsonpath:json-path:2.4.0" level="project" />
