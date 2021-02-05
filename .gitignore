@@ -13,3 +13,7 @@ confengine-api-tests.iws
 results/
 metrics-monitor/influxdb/
 metrics-monitor/grafana/
+
+### Prometheus ###
+prometheus-metrics-monitor/prometheus_data/
+prometheus-metrics-monitor/grafana/

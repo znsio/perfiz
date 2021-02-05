@@ -1,0 +1,21 @@
+version: '3'
+services:
+  grafana:
+    image: "grafana/grafana"
+    ports:
+      - "3000:3000"
+    depends_on:
+      - prometheus
+    links:
+      - prometheus:prometheus
+    volumes:
+      - ${PWD}/grafana:/var/lib/grafana
+      - ${PWD}/dashboards:/var/lib/grafana/dashboards
+      - ${PWD}/provisioning:/etc/grafana/provisioning
+  prometheus:
+    image: "prom/prometheus"
+    ports:
+      - "9090:9090"
+    volumes:
+      - ${PWD}/prometheus/:/etc/prometheus/
+      - ${PWD}/prometheus_data:/prometheus

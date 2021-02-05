@@ -1,16 +1,16 @@
-#Performance Testing Metrics Monitor
+# Performance Testing Metrics Monitor
 
-##Purpose
+## Purpose
 
 One click TIG (Telegraf InfluxDb Grafana) setup that monitors your Gatling Tests and Application metrics
 * Docker based, requires no local setup
 * Leverages Karate tests through Karate Gatling
 
-##Pre-Requisites
+## Pre-Requisites
 * Docker
 * Docker-Compose
 
-##Quick Start
+## Quick Start
 * Create a Karate feature in a location of your choice, Example:
 ```gherkin
 #~/KarateFeatures/googlesearch.feature
