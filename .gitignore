@@ -5,9 +5,6 @@
 .history
 .DS_Store
 .m2
-confengine.iml
-confengine-api-tests.ipr
-confengine-api-tests.iws
 /target
 
 ### Gatling ###
