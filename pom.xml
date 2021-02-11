@@ -60,16 +60,6 @@
             <artifactId>snakeyaml</artifactId>
             <version>1.27</version>
         </dependency>
-<!--        <dependency>-->
-<!--            <groupId>com.fasterxml.jackson.dataformat</groupId>-->
-<!--            <artifactId>jackson-dataformat-yaml</artifactId>-->
-<!--            <version>2.12.1</version>-->
-<!--        </dependency>-->
-<!--        <dependency>-->
-<!--            <groupId>com.fasterxml.jackson.module</groupId>-->
-<!--            <artifactId>jackson-module-scala_2.13</artifactId>-->
-<!--            <version>2.12.1</version>-->
-<!--        </dependency>-->
     </dependencies>
 
     <build>
@@ -81,7 +71,7 @@
                 </excludes>
             </testResource>
             <testResource>
-                <directory>/usr/src/karate-features</directory>
+                <directory>${env.KARATE_FEATURES}</directory>
             </testResource>
         </testResources>
         <plugins>
