@@ -10,6 +10,8 @@ services:
       - ${PWD}/grafana:/var/lib/grafana
       - ${PWD}/dashboards:/var/lib/grafana/dashboards
       - ${PWD}/provisioning:/etc/grafana/provisioning
+    networks:
+      - perfiz-network
   influxgraph:
     environment:
       INFLUXGRAPH_GUNICORN_LOGLEVEL: "debug"
@@ -20,6 +22,8 @@ services:
       - influxdb:influxdb
     ports:
       - "8000:80"
+    networks:
+      - perfiz-network
   influxdb:
     environment:
       INFLUXDB_REPORTING_DISABLED: "true"
@@ -32,3 +36,9 @@ services:
       - "2003:2003"
     volumes:
       - ${PWD}/influxdb:/var/lib/influxdb
+    networks:
+      - perfiz-network
+
+networks:
+  perfiz-network:
+    name: "perfiz-network"

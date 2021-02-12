@@ -15,3 +15,4 @@ metrics-monitor/grafana/
 ### Prometheus ###
 prometheus-metrics-monitor/prometheus_data/
 prometheus-metrics-monitor/grafana/
+prometheus-metrics-monitor/influxdb/

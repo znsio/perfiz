@@ -12,6 +12,8 @@ services:
       - ${PWD}/grafana:/var/lib/grafana
       - ${PWD}/dashboards:/var/lib/grafana/dashboards
       - ${PWD}/provisioning:/etc/grafana/provisioning
+    networks:
+      - perfiz-network
   prometheus:
     image: "prom/prometheus"
     ports:
@@ -19,3 +21,50 @@ services:
     volumes:
       - ${PWD}/prometheus/:/etc/prometheus/
       - ${PWD}/prometheus_data:/prometheus
+    depends_on:
+      - cadvisor
+    networks:
+      - perfiz-network
+  cadvisor:
+    image: gcr.io/cadvisor/cadvisor:latest
+    container_name: cadvisor
+    ports:
+      - 8082:8080
+    volumes:
+      - /:/rootfs:ro
+      - /var/run/docker.sock:/var/run/docker.sock:rw # This works on Mac
+#      - /var/run:/var/run:ro # This may work on Linux
+      - /sys:/sys:ro
+      - /var/lib/docker/:/var/lib/docker:ro
+    networks:
+      - perfiz-network
+  influxgraph:
+    environment:
+      INFLUXGRAPH_GUNICORN_LOGLEVEL: "debug"
+      INFLUXGRAPH_GUNICORN_TIMEOUT: "300"
+      INFLUXGRAPH_GUNICORN_WORKERS: "2"
+    image: "influxgraph/influxgraph"
+    links:
+      - influxdb:influxdb
+    ports:
+      - "8000:80"
+    networks:
+      - perfiz-network
+  influxdb:
+    environment:
+      INFLUXDB_REPORTING_DISABLED: "true"
+      INFLUXDB_GRAPHITE_ENABLED: "true"
+      INFLUXDB_GRAPHITE_TEMPLATES: "measurement.field*"
+      INFLUXDB_GRAPHITE_DATABASE: "telegraf"
+    image: "influxdb"
+    ports:
+      - "8086:8086"
+      - "2003:2003"
+    volumes:
+      - ${PWD}/influxdb:/var/lib/influxdb
+    networks:
+      - perfiz-network
+
+networks:
+  perfiz-network:
+    name: "perfiz-network"
