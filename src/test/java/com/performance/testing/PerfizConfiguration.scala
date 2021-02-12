@@ -11,24 +11,18 @@ class PerfizConfiguration {
   @JsonProperty("karateFeatures")
   @BeanProperty
   var karateFeatures: List[KarateFeature] = new ArrayList[KarateFeature]()
-
-  @JsonIgnore
-  @BeanProperty
-  var additionalProperties: Map[String, Any] = new HashMap[String, Any]()
-
-  @JsonAnySetter
-  def setAdditionalProperty(name: String, value: AnyRef) {
-    this.additionalProperties.put(name, value)
-  }
 }
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder(Array("karateFile", "loadPattern", "uriPatterns"))
+@JsonPropertyOrder(Array("karateFile", "gatlingSimulationName", "loadPattern", "uriPatterns"))
 class KarateFeature {
-
   @JsonProperty("karateFile")
   @BeanProperty
   var karateFile: String = _
+
+  @JsonProperty("gatlingSimulationName")
+  @BeanProperty
+  var gatlingSimulationName: String = _
 
   @JsonProperty("loadPattern")
   @BeanProperty
@@ -37,21 +31,11 @@ class KarateFeature {
   @JsonProperty("uriPatterns")
   @BeanProperty
   var uriPatterns: List[String] = new ArrayList[String]()
-
-  @JsonIgnore
-  @BeanProperty
-  var additionalProperties: Map[String, Any] = new HashMap[String, Any]()
-
-  @JsonAnySetter
-  def setAdditionalProperty(name: String, value: AnyRef) {
-    this.additionalProperties.put(name, value)
-  }
 }
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder(Array("patternType", "userCount", "duration"))
 class LoadPattern {
-
   @JsonProperty("patternType")
   @BeanProperty
   var patternType: String = _
@@ -63,13 +47,4 @@ class LoadPattern {
   @JsonProperty("duration")
   @BeanProperty
   var duration: String = _
-
-  @JsonIgnore
-  @BeanProperty
-  var additionalProperties: Map[String, Any] = new HashMap[String, Any]()
-
-  @JsonAnySetter
-  def setAdditionalProperty(name: String, value: AnyRef) {
-    this.additionalProperties.put(name, value)
-  }
 }

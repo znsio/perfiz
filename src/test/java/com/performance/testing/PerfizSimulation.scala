@@ -28,7 +28,7 @@ class PerfizSimulation extends Simulation {
     val protocol = karateProtocol(
       karateFeatureConfig.uriPatterns.asScala.map { uriPattern => uriPattern -> Nil }: _*
     )
-    scenario(karateFeatureConfig.getKarateFile).
+    scenario(karateFeatureConfig.getGatlingSimulationName).
       exec(karateFeature("classpath:" + karateFeatureConfig.getKarateFile)).
       inject(injections).
       protocols(protocol)
