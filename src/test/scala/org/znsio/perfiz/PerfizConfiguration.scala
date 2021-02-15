@@ -34,7 +34,7 @@ class KarateFeature {
 }
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder(Array("patternType", "userCount", "duration"))
+@JsonPropertyOrder(Array("patternType", "userCount", "duration", "randomised"))
 class LoadPattern {
   @JsonProperty("patternType")
   @BeanProperty
@@ -47,4 +47,8 @@ class LoadPattern {
   @JsonProperty("duration")
   @BeanProperty
   var duration: String = _
+
+  @JsonProperty("randomised")
+  @BeanProperty
+  var randomised: Boolean = _
 }
