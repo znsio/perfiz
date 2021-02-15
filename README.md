@@ -4,6 +4,8 @@
 
 Grafana visualization for Karate-Gatling performance test results with Application Performance Metrics.
 
+Jump to [quick-start](https://github.com/znsio/perfiz#quick-start)
+
 ### Under the hood
 
 * Karate-Gatling
