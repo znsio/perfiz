@@ -5,16 +5,12 @@ import com.fasterxml.jackson.annotation.{JsonAnySetter, JsonIgnore, JsonInclude,
 import scala.beans.BeanProperty
 import java.util.{ArrayList, HashMap, List, Map}
 
-@JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder(Array("karateFeatures"))
 class PerfizConfiguration {
   @JsonProperty("karateFeatures")
   @BeanProperty
   var karateFeatures: List[KarateFeature] = new ArrayList[KarateFeature]()
 }
 
-@JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder(Array("karateFile", "gatlingSimulationName", "loadPattern", "uriPatterns"))
 class KarateFeature {
   @JsonProperty("karateFile")
   @BeanProperty
@@ -33,8 +29,6 @@ class KarateFeature {
   var uriPatterns: List[String] = new ArrayList[String]()
 }
 
-@JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder(Array("patternType", "userCount", "duration", "randomised", "targetUserCount"))
 class LoadPattern {
   @JsonProperty("patternType")
   @BeanProperty
