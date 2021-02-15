@@ -19,7 +19,10 @@
   "links": [],
   "panels": [
     {
-      "aliasColors": {},
+      "aliasColors": {
+        "gatling.Active": "blue",
+        "gatling.Done": "green"
+      },
       "bars": false,
       "dashLength": 10,
       "dashes": false,
@@ -33,10 +36,178 @@
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
-        "h": 7,
+        "h": 6,
         "w": 24,
         "x": 0,
         "y": 0
+      },
+      "hiddenSeries": false,
+      "id": 6,
+      "legend": {
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "show": true,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 1,
+      "nullPointMode": "connected",
+      "percentage": false,
+      "pluginVersion": "7.1.1",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "measurement": "gatling",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "perfizsimulation.users.allUsers.active"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              },
+              {
+                "params": [
+                  "Active"
+                ],
+                "type": "alias"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "perfizsimulation.users.allUsers.waiting"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              },
+              {
+                "params": [
+                  "Waiting"
+                ],
+                "type": "alias"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "perfizsimulation.users.allUsers.done"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              },
+              {
+                "params": [
+                  "Done"
+                ],
+                "type": "alias"
+              }
+            ]
+          ],
+          "tags": []
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "Users - Active, Waiting and Done",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {
+        "gatling.all": "blue",
+        "gatling.ko": "red",
+        "gatling.ok": "green"
+      },
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": null,
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 6,
+        "w": 24,
+        "x": 0,
+        "y": 6
       },
       "hiddenSeries": false,
       "id": 2,
@@ -86,7 +257,7 @@
             [
               {
                 "params": [
-                  "rampandsustainsimulation.GET_/.all.count"
+                  "perfizsimulation.allRequests.all.count"
                 ],
                 "type": "field"
               },
@@ -104,7 +275,7 @@
             [
               {
                 "params": [
-                  "rampandsustainsimulation.GET_/.ok.count"
+                  "perfizsimulation.allRequests.ok.count"
                 ],
                 "type": "field"
               },
@@ -122,7 +293,7 @@
             [
               {
                 "params": [
-                  "rampandsustainsimulation.GET_/.ko.count"
+                  "perfizsimulation.allRequests.ko.count"
                 ],
                 "type": "field"
               },
@@ -145,7 +316,7 @@
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "Gatling requests",
+      "title": "Gatling Requests - All, OK and KO",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -197,10 +368,10 @@
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
-        "h": 8,
+        "h": 6,
         "w": 24,
         "x": 0,
-        "y": 7
+        "y": 12
       },
       "hiddenSeries": false,
       "id": 4,
@@ -250,7 +421,7 @@
             [
               {
                 "params": [
-                  "rampandsustainsimulation.GET_/.all.percentiles99"
+                  "perfizsimulation.allRequests.all.percentiles99"
                 ],
                 "type": "field"
               },
@@ -268,7 +439,7 @@
             [
               {
                 "params": [
-                  "rampandsustainsimulation.GET_/.all.percentiles95"
+                  "perfizsimulation.allRequests.all.percentiles95"
                 ],
                 "type": "field"
               },
@@ -286,7 +457,7 @@
             [
               {
                 "params": [
-                  "rampandsustainsimulation.GET_/.all.percentiles75"
+                  "perfizsimulation.allRequests.all.percentiles75"
                 ],
                 "type": "field"
               },
@@ -304,7 +475,7 @@
             [
               {
                 "params": [
-                  "rampandsustainsimulation.GET_/.all.percentiles50"
+                  "perfizsimulation.allRequests.all.percentiles50"
                 ],
                 "type": "field"
               },
@@ -365,7 +536,7 @@
       }
     }
   ],
-  "refresh": false,
+  "refresh": "10s",
   "schemaVersion": 26,
   "style": "dark",
   "tags": [],
@@ -373,8 +544,8 @@
     "list": []
   },
   "time": {
-    "from": "2021-02-03T14:54:28.391Z",
-    "to": "2021-02-03T15:01:57.698Z"
+    "from": "now-5m",
+    "to": "now"
   },
   "timepicker": {
     "refresh_intervals": [
@@ -390,7 +561,7 @@
     ]
   },
   "timezone": "",
-  "title": "Ramp And Sustain Performance Test Metrics",
+  "title": "Perfiz Gatling Metric Monitor",
   "uid": "4J3EC9xGk",
-  "version": 4
+  "version": 2
 }
