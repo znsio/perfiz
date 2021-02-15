@@ -1,4 +1,4 @@
-package com.performance.testing
+package org.znsio.perfiz
 
 import java.io.{File, FileInputStream}
 

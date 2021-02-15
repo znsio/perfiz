@@ -1,4 +1,4 @@
-package com.performance.testing
+package org.znsio.perfiz
 
 import com.fasterxml.jackson.annotation.{JsonAnySetter, JsonIgnore, JsonInclude, JsonProperty, JsonPropertyOrder}
 
