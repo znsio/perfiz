@@ -2,13 +2,13 @@
 
 ## Purpose
 
-Grafana visualization for Gatling performance test results with Application Performance Metrics.
+Dockerised setup to visualize Gatling Performance Test Metrics and Application Metrics in Grafana in real-time.
 
 Jump to [quick-start](https://github.com/znsio/perfiz#quick-start)
 
 ### Under the hood
 
-* Karate-Gatling
+* Gatling and Karate-Gatling
 * Docker and Docker-Compose
 * Grafana
 * InfluxDB and Prometheus (More on this later)
@@ -17,13 +17,23 @@ Jump to [quick-start](https://github.com/znsio/perfiz#quick-start)
 ### Why
 
 [Gatling](https://gatling.io/) is a capable load testing tool.
-Being able to re-use [Karate](https://intuit.github.io/karate/) API tests as Gatling performance tests with [Karate-Gatling](https://github.com/intuit/karate/tree/master/karate-gatling) is all the more reason to leverage it.
+Being able to re-use [Karate](https://intuit.github.io/karate/) API tests as Gatling performance tests with [Karate-Gatling](https://github.com/intuit/karate/tree/master/karate-gatling) helps reduce the effort to re-write the API test as a Gatling Scenario.
 
 As long term users of the above tools we started seeing some patterns which we can potentially bundle as a re-usable setup.
-* **Gatling Scala DSL as YAML** - To leverage Karate scripts in Gatling, we need to write simulations in [Gatling Scala DSL](https://github.com/intuit/karate/tree/master/karate-gatling#usage). While we like Scala, sometime it can be a lot of effort just to reuse some Karate files.
-So we came up with a YAML wrapper on Gatling Scala DSL to go from Karate features to load test in just a matter of seconds.
-* **Gatling test results as Grafana Dashboards** - [Gatling reports](https://gatling.io/docs/current/general/reports/) are comprehensive. However we often need to plot the Requests Per Second, Response Times, User Metrics etc. with X-Axis as time so that we can plot application metrics on the same time series to identify patterns.
-Also we sometimes need to monitor the test in realtime and we cannot wait for the report to be published after the test run. We configured Gatling to publish real time monitoring data and setup re-usable Grafana Dashboards to visualize it.
+* **Gatling Scala DSL as YAML** - To leverage Karate scripts in Gatling, we still need to write simulations in [Gatling Scala DSL](https://github.com/intuit/karate/tree/master/karate-gatling#usage). While we like Scala and the Gatling DSL, it sometimes can seem like extra effort to non-Scala Devs. So we came up with a YAML wrapper on Gatling Scala DSL to bypass the Scala Simulation file step while still staying close Gatling vocabulary.
+  ```yaml
+  karateFeatures:
+    - karateFile: "apis/perf/bookpurchase.feature"
+      gatlingSimulationName: "AllGet"
+      loadPattern:
+        - patternType: "constantUsersPerSec"
+          userCount: "1"
+          duration: "30 seconds"
+      uriPatterns:
+      - "/api/books/{isbn}"
+      - "/api/books/{isbn}/authors"
+  ```
+* **Gatling test results as Grafana Dashboards** - [Gatling reports](https://gatling.io/docs/current/general/reports/) are comprehensive. However we often need to plot the Requests Per Second, Response Times, User Metrics etc. with X-Axis as time so that we can plot application metrics on the same time series to identify patterns. Also we sometimes need to monitor the test in realtime and we cannot wait for the report to be published after the test run. We configured Gatling to publish real time monitoring data and setup re-usable Grafana Dashboards to visualize it.
 * **Application Performance Metrics** - The purpose of a load test is to see how the application behaves as load pattern varies. Since we already have Grafana Dashboard reading from a time-series DB for Gatling metrics, we just need to send Application metrics also to this DB.
 At the moment we support Telegraf and are working on Prometheus.
 * **Containerised Approach** - Perfiz is completely Dockerised and avoids the lengthy setup required to achieve the above setup. We pre-package Grafana with the right data-sources and dashboard panels so that you can concentrate on your actual load test.
