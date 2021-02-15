@@ -65,12 +65,6 @@
     <build>
         <testResources>
             <testResource>
-                <directory>src/test/java</directory>
-                <excludes>
-                    <exclude>**/*.java</exclude>
-                </excludes>
-            </testResource>
-            <testResource>
                 <directory>${env.KARATE_FEATURES}</directory>
             </testResource>
         </testResources>
@@ -91,7 +85,7 @@
                 <artifactId>gatling-maven-plugin</artifactId>
                 <version>${gatling.plugin.version}</version>
                 <configuration>
-                    <simulationsFolder>src/test/java</simulationsFolder>
+                    <simulationsFolder>src/test/scala</simulationsFolder>
                 </configuration>
                 <executions>
                     <execution>
