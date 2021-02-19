@@ -68,15 +68,23 @@ cd -
 karateFeatures:
   - karateFile: "googlesearch.feature"
     loadPattern:
+      - patternType: "nothingFor"
+        duration: "3 seconds"
       - patternType: "rampUsers"
         userCount: "3"
         duration: "3 seconds"
       - patternType: "constantUsersPerSec"
         userCount: "3"
         duration: "3 seconds"
+        randomised: "false"
+      - patternType: "rampUsersPerSec"
+        userCount: "3"
+        targetUserCount: "6"
+        duration: "3 seconds"
+        randomised: "true"
 ```
   * The above configuration has one karateFeature yaml item per Karate Feature file
-  * The load pattern that should be run with that file is listed under it
+  * The load pattern that should be run with that file is listed under it and it closely resembles Gatling load patterns
   * You can repeat the karateFeature section as many times as the number of feature files you need run 
 * Now you can run the Karate feature we created in step 1 as a Gatling test with below command
 ```shell script
