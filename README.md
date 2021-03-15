@@ -120,3 +120,10 @@ While the preferred method to gather your app metrics in through Prometheus, you
   database = "telegraf"
 ```
 
+## Developers
+
+To create a release push an annotated tag. Example:
+```shell script
+git tag -a <release version> -m "<release message>"
+git push origin <release version>
+```
