@@ -2,7 +2,9 @@
 
 ## Purpose
 
-Dockerised setup to visualize Gatling Performance Test Metrics and Application Metrics side by side in Grafana in real-time.
+A completely Dockerised Performance Test Setup to
+* Run your Gatling Tests (Karate Gatling at the moment) without setting up Java on your local machine or writing any Scala simulations
+* Visualize your Gatling Performance Test Metrics and Application Metrics side by side in Grafana in real-time
 
 Jump to [quick-start](https://github.com/znsio/perfiz#quick-start)
 
