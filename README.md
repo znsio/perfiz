@@ -53,9 +53,9 @@ Feature: Google Search
     Then status 200
 ```
 * Clone this repo
-* Change directory to metrics-monitor and run docker-compose
+* Change directory to prometheus-metrics-monitor and run docker-compose
 ```shell script
-cd metrics-monitor
+cd prometheus-metrics-monitor
 docker-compose up -d
 cd -
 ```
