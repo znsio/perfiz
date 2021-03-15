@@ -11,6 +11,6 @@ jobs:
       - name: Zip Folder
         run: zip -r perfiz.zip .
       - uses: ncipollo/release-action@v1
-          with:
-            artifacts: "perfiz.zip"
-            token: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          artifacts: "perfiz.zip"
+          token: ${{ secrets.GITHUB_TOKEN }}
