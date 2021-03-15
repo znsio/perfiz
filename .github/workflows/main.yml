@@ -1,0 +1,16 @@
+name: GenerateZip
+on:
+  push:
+    tags:
+      - '*'
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - name: Zip Folder
+        run: zip -r perfiz.zip .
+      - uses: ncipollo/release-action@v1
+          with:
+            artifacts: "perfiz.zip"
+            token: ${{ secrets.GITHUB_TOKEN }}
