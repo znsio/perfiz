@@ -2,7 +2,7 @@
 
 ## Purpose
 
-Dockerised setup to visualize Gatling Performance Test Metrics and Application Metrics in Grafana in real-time.
+Dockerised setup to visualize Gatling Performance Test Metrics and Application Metrics side by side in Grafana in real-time.
 
 Jump to [quick-start](https://github.com/znsio/perfiz#quick-start)
 
@@ -53,17 +53,20 @@ Feature: Google Search
     Then status 200
 ```
 * Clone this repo
-* Change directory to prometheus-metrics-monitor and run docker-compose
+* Run docker-compose.
 ```shell script
-cd prometheus-metrics-monitor
 docker-compose up -d
-cd -
 ```
 * Launch Grafana on your browser on localhost:3000. It may ask you to change the password.
   * UserName - admin
   * Password - admin
-* You should be able to see the InfluxDB data source already setup and a default Dashboard that has sample Gatling Panels
-* Create a YAML file with below content in a location as per your choice
+* You now have a Performance Testing setup running. This includes
+  * Gatling - which can run your Karate API tests as Perf Tests
+  * Prometheus - to gather your application metrics
+  * Grafana
+    * Pre-configured with Dashboards to monitor your Gatling tests in real-time
+    * Pre-configured to the above Prometheus DB as data source
+* Let us quickly run a test and see this in action. Create a YAML file with below content in a location as per your choice
 ```yaml
 karateFeatures:
   - karateFile: "googlesearch.feature"
@@ -96,3 +99,15 @@ karateFeatures:
   However if you have sub-folders inside the base folder please mention the relative path example ~/KarateFeatures/bing/bingsearch.yaml should be mentioned as bing/bingsearch.yaml in perfiz.yaml
   * The second parameter is the location of the perfiz.yaml file
 * The metrics will be visible on Grafana Dashboard
+
+## Optional
+
+Perfiz also includes InfluxDB. We use this to gather Gatling perf test metrics.
+
+While the preferred method to gather your app metrics in through Prometheus, you can add below lines to your telegraf.conf to push your application metrics to this InfluxDB.
+```
+[[outputs.influxdb]]
+  urls = ["http://localhost:8086"]
+  database = "telegraf"
+```
+
