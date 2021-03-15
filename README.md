@@ -100,6 +100,16 @@ karateFeatures:
   * The second parameter is the location of the perfiz.yaml file
 * The metrics will be visible on Grafana Dashboard
 
+## Prometheus Configuration
+
+Add your scrape_configs to ```./prometheus-metrics-monitor/prometheus/prometheus.yml```
+
+## CAdvisor Configuration - Optional
+
+We monitor Perfiz's own container metrics through CAdvisor.
+It works well on Mac OS at the moment. We are still testing Windows and Linux.
+You can disable the CAdvisor setup in ```docker-compose.yml``` if this is not a priority to you.
+
 ## Optional
 
 Perfiz also includes InfluxDB. We use this to gather Gatling perf test metrics.
