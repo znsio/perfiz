@@ -40,11 +40,8 @@ As long term users of the above tools we started seeing some patterns which we c
 At the moment we support Telegraf and are working on Prometheus.
 * **Containerised Approach** - Perfiz is completely Dockerised and avoids the lengthy setup required to achieve the above setup. We pre-package Grafana with the right data-sources and dashboard panels so that you can concentrate on your actual load test.
 
-## Pre-Requisites
-* Docker
-* Docker-Compose
-
 ## Quick Start
+* **Pre-requisites** - Docker and Docker-Compose
 * Create a Karate feature in a location of your choice, Example:
 ```gherkin
 #~/KarateFeatures/googlesearch.feature
@@ -54,7 +51,7 @@ Feature: Google Search
     When method get
     Then status 200
 ```
-* Clone this repo
+* Download the latest release zip file or clone this repo and ```cd``` into it
 * Run docker-compose.
 ```shell script
 docker-compose up -d
@@ -102,17 +99,17 @@ karateFeatures:
   * The second parameter is the location of the perfiz.yaml file
 * The metrics will be visible on Grafana Dashboard
 
-## Prometheus Configuration
+### Prometheus Configuration
 
 Add your scrape_configs to ```./prometheus-metrics-monitor/prometheus/prometheus.yml```
 
-## CAdvisor Configuration - Optional
+### CAdvisor Configuration - Optional
 
 We monitor Perfiz's own container metrics through CAdvisor.
 It works well on Mac OS at the moment. We are still testing Windows and Linux.
 You can disable the CAdvisor setup in ```docker-compose.yml``` if this is not a priority to you.
 
-## Optional
+### Optional
 
 Perfiz also includes InfluxDB. We use this to gather Gatling perf test metrics.
 
