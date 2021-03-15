@@ -51,7 +51,7 @@ Feature: Google Search
     When method get
     Then status 200
 ```
-* Download the latest release zip file or clone this repo and ```cd``` into it
+* Download the latest [release zip file](https://github.com/znsio/perfiz/releases) file or clone this repo and ```cd``` into it
 * Run docker-compose.
 ```shell script
 docker-compose up -d
