@@ -41,8 +41,12 @@ At the moment we support Telegraf and are working on Prometheus.
 * **Containerised Approach** - Perfiz is completely Dockerised and avoids the lengthy setup required to achieve the above setup. We pre-package Grafana with the right data-sources and dashboard panels so that you can concentrate on your actual load test.
 
 ## Quick Start
+Go to [Perfiz Demo](https://github.com/znsio/perfiz-demo) to get your Perf test setup running in less than 5 min
+
+## Detailed Tutorial
+This a detailed tutorial where you will be able to setup Perfiz on any of your existing Apps
 * **Pre-requisites** - Docker and Docker-Compose
-* Create a Karate feature in a location of your choice, Example:
+* Create a Karate feature in a location of your choice ([Karate Syntax Reference](https://github.com/intuit/karate)), Example:
 ```gherkin
 #~/KarateFeatures/googlesearch.feature
 Feature: Google Search
@@ -51,7 +55,7 @@ Feature: Google Search
     When method get
     Then status 200
 ```
-* Download the latest [release zip file](https://github.com/znsio/perfiz/releases) file or clone this repo and ```cd``` into it
+* Download the latest [Perfiz release zip file](https://github.com/znsio/perfiz/releases) file or clone this repo and ```cd``` into it
 * Run docker-compose.
 ```shell script
 docker-compose up -d
@@ -69,6 +73,7 @@ docker-compose up -d
 ```yaml
 karateFeatures:
   - karateFile: "googlesearch.feature"
+    gatlingSimulationName: "My Simulation"
     loadPattern:
       - patternType: "nothingFor"
         duration: "3 seconds"
@@ -86,7 +91,8 @@ karateFeatures:
         randomised: "true"
 ```
   * The above configuration has one karateFeature yaml item per Karate Feature file
-  * The load pattern that should be run with that file is listed under it and it closely resembles Gatling load patterns
+  * Gatling records related metrics under gatlingSimulationName, which you will be able to visualize in Grafana 
+  * The load pattern that should be run with that file is listed under it and it closely resembles [Gatling load patterns](https://gatling.io/docs/current/general/simulation_setup/)
   * You can repeat the karateFeature section as many times as the number of feature files you need run 
 * Now you can run the Karate feature we created in step 1 as a Gatling test with below command
 ```shell script
