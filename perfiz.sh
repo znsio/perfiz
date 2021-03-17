@@ -24,14 +24,18 @@ case "$1" in
     ;;
 esac
 
-mkdir -p .m2
-
 PERFIZ_YML=perfiz.yml
 if [[ -e "$PERFIZ_YML" ]]; then
   echo "Picking configurations in $PERFIZ_YML..."
 else
   echo "$PERFIZ_YML not found. Please see https://github.com/znsio/perfiz for instructins. Exiting."
   exit 1;
+fi
+
+GRAFANA_DASHBOARDS_DIRECTORY="$PWD/perfiz/dashboards"
+if [[ -d "$GRAFANA_DASHBOARDS_DIRECTORY" ]]; then
+  echo "Copying Grafana Dashboard jsons in $GRAFANA_DASHBOARDS_DIRECTORY"
+  find "$GRAFANA_DASHBOARDS_DIRECTORY" -name '*.json' -exec cp -prv '{}' "$PERFIZ_HOME/prometheus-metrics-monitor/grafana/dashboards" ';'
 fi
 
 echo "Starting Perfiz Docker Containers..."
@@ -41,8 +45,15 @@ echo "Navigate to http://localhost:3000 for Grafana"
 
 echo "Starting Gatling Tests..."
 
+PERFIZ_MAVEN_REPO="$PERFIZ_HOME/.m2"
+if [[ -d "$PERFIZ_MAVEN_REPO" ]]; then
+  echo "$PERFIZ_MAVEN_REPO available. Skipping Maven Dependency Download."
+else
+  echo "$PERFIZ_MAVEN_REPO does not exist. Maven dependencies will be run downloaded. This may take a while..."
+fi
+
 docker run -it --rm --name perfiz-gatling \
-  -v "$PERFIZ_HOME/.m2":/root/.m2 \
+  -v "$PERFIZ_MAVEN_REPO":/root/.m2 \
   -v "$PERFIZ_HOME":/usr/src/performance-testing \
   -v "$PWD":/usr/src/karate-features \
   -v "$PWD/$PERFIZ_YML":/usr/src/perfiz.yml \
