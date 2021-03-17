@@ -51,21 +51,12 @@ Feature: Google Search
     When method get
     Then status 200
 ```
-* Download the latest [Perfiz release zip file](https://github.com/znsio/perfiz/releases) file or clone this repo and ```cd``` into it
-* Run docker-compose.
+* Download the latest [Perfiz release zip file](https://github.com/znsio/perfiz/releases) file and unzip to a location of your choice
+* Set ```PERFIZ_HOME``` environment variable and add it to your ```PATH```.
 ```shell script
-docker-compose up -d
+export PERFIZ_HOME=<path to perfiz dir>
 ```
-* Launch Grafana on your browser on localhost:3000. It may ask you to change the password.
-  * UserName - admin
-  * Password - admin
-* You now have a Performance Testing setup running. This includes
-  * Gatling - which can run your Karate API tests as Perf Tests
-  * Prometheus - to gather your application metrics
-  * Grafana
-    * Pre-configured with Dashboards to monitor your Gatling tests in real-time
-    * Pre-configured to the above Prometheus DB as data source
-* Let us quickly run a test and see this in action. Create a YAML file with below content in a location as per your choice
+* Change directory to ```~/KarateFeatures``` and create **perfiz.yml** file with below content
 ```yaml
 karateFeatures:
   - karateFile: "googlesearch.feature"
@@ -87,18 +78,23 @@ karateFeatures:
         randomised: "true"
 ```
   * The above configuration has one karateFeature yaml item per Karate Feature file
+  * In karateFile property, path to feature file should be relative to the ```perfiz.yml``` file
   * Gatling records related metrics under gatlingSimulationName, which you will be able to visualize in Grafana 
   * The load pattern that should be run with that file is listed under it and it closely resembles [Gatling load patterns](https://gatling.io/docs/current/general/simulation_setup/)
   * You can repeat the karateFeature section as many times as the number of feature files you need run 
 * Now you can run the Karate feature we created in step 1 as a Gatling test with below command
 ```shell script
-./perfiz.sh ~/KarateFeatures ~/perfiz.yaml
+$PERFIZ_HOME/perfiz.sh start
 ```
-  * The first parameter is the base folder of your Karate Feature Files.
-  * NOTE: Perfiz will look for the feature files in the above based folder.
-  If the feature files are directly under the base folder, then you can mention just the feature file name in the perfiz.yaml as shown above.
-  However if you have sub-folders inside the base folder please mention the relative path example ~/KarateFeatures/bing/bingsearch.yaml should be mentioned as bing/bingsearch.yaml in perfiz.yaml
-  * The second parameter is the location of the perfiz.yaml file
+* Launch Grafana on your browser on localhost:3000. It may ask you to change the password.
+  * UserName - admin
+  * Password - admin
+* You now have a Performance Testing setup running. This includes
+  * Gatling - which can run your Karate API tests as Perf Tests
+  * Prometheus - to gather your application metrics
+  * Grafana
+    * Pre-configured with Dashboards to monitor your Gatling tests in real-time
+    * Pre-configured to the above Prometheus DB as data source
 * The metrics will be visible on Grafana Dashboard
 
 ### Prometheus Configuration
