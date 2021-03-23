@@ -39,6 +39,9 @@ At the moment we support Telegraf and are working on Prometheus.
 ## Quick Start
 Go to [Perfiz Demo](https://github.com/znsio/perfiz-demo) to get your Perf test setup running in less than 5 min
 
+## Platforms
+Tested on MacOS and Linux. Windows will be supported soon.
+
 ## Detailed Tutorial
 This a detailed tutorial where you will be able to setup Perfiz on any of your existing Apps
 * **Pre-requisites** - Docker and Docker-Compose
