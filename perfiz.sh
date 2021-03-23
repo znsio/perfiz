@@ -3,6 +3,10 @@ if [ -z "${PERFIZ_HOME}" ]; then
   echo 'Please set PERFIZ_HOME environment variable. Exiting.';
   exit 1;
 fi
+if [ ! -d "${PERFIZ_HOME}" ]; then
+  echo "PERFIZ_HOME is set to a directory that does not exist: $PERFIZ_HOME. Exiting.";
+  exit 1;
+fi
 if [ ! -e "$PERFIZ_HOME/perfiz-cli" ]; then
   "Initial Setup. Downloading perfiz-cli."
   OS=`uname -s`
