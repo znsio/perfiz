@@ -10,6 +10,8 @@ import scala.concurrent.duration.{Duration, FiniteDuration}
 class PerfizConfiguration {
   @BeanProperty
   var karateFeatures: List[KarateFeature] = new ArrayList[KarateFeature]()
+  @BeanProperty
+  var karateFeaturesDir: String = _
 }
 
 class KarateFeature {
