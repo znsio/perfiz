@@ -113,7 +113,7 @@ karateFeatures: #List of KarateFeatures which need to be run as Load Tests
       - patternType: #Modelled closely after Gatling - https://gatling.io/docs/current/general/simulation_setup/
                      #IMPORTANT: Please make sure to not mix up Open and Closed models as mentioned in above Gatling Documentation
                      #Example: "nothingFor"
-                     #Move Examples below
+                     #More Examples below
         duration: "3 seconds"
       - patternType: "rampUsers"
         userCount: "3"
