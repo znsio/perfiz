@@ -18,19 +18,8 @@ Jump to [quick-start](https://github.com/znsio/perfiz#quick-start)
 Being able to re-use [Karate](https://intuit.github.io/karate/) API tests as Gatling performance tests with [Karate-Gatling](https://github.com/intuit/karate/tree/master/karate-gatling) helps reduce the effort to re-write the API test as a Gatling Scenario.
 
 As long term users of the above tools we started seeing some patterns which we can potentially bundle as a re-usable setup.
-* **Gatling Scala DSL as YAML** - To leverage Karate scripts in Gatling, we still need to write simulations in [Gatling Scala DSL](https://github.com/intuit/karate/tree/master/karate-gatling#usage). While we like Scala and the Gatling DSL, it sometimes can seem like extra effort to non-Scala Devs. So we came up with a YAML wrapper on Gatling Scala DSL to bypass the Scala Simulation file step while still staying close Gatling vocabulary.
-  ```yaml
-  karateFeatures:
-    - karateFile: "apis/perf/bookpurchase.feature"
-      gatlingSimulationName: "AllGet"
-      loadPattern:
-        - patternType: "constantUsersPerSec"
-          userCount: "1"
-          duration: "30 seconds"
-      uriPatterns:
-      - "/api/books/{isbn}"
-      - "/api/books/{isbn}/authors"
-  ```
+* **Gatling Scala DSL as YAML** - To leverage Karate scripts in Gatling, we still need to write simulations in [Gatling Scala DSL](https://github.com/intuit/karate/tree/master/karate-gatling#usage). While we like Scala and the Gatling DSL, it sometimes can seem like extra effort to non-Scala Devs.
+So we came up with a [YAML wrapper](https://github.com/znsio/perfiz#perfiz-yaml-documentation) on Gatling Scala DSL to bypass the Scala Simulation file step while still staying close Gatling vocabulary.
 * **Gatling test results as Grafana Dashboards** - [Gatling reports](https://gatling.io/docs/current/general/reports/) are comprehensive. However we often need to plot the Requests Per Second, Response Times, User Metrics etc. with X-Axis as time so that we can plot application metrics on the same time series to identify patterns. Also we sometimes need to monitor the test in realtime and we cannot wait for the report to be published after the test run. We configured Gatling to publish real time monitoring data and setup re-usable Grafana Dashboards to visualize it.
 * **Application Performance Metrics** - The purpose of a load test is to see how the application behaves as load pattern varies. Since we already have Grafana Dashboard reading from a time-series DB for Gatling metrics, we just need to send Application metrics also to this DB.
 At the moment we support Telegraf and are working on Prometheus.
@@ -45,22 +34,19 @@ Tested on MacOS and Linux. Windows will be supported soon.
 ## Detailed Tutorial
 This a detailed tutorial where you will be able to setup Perfiz on any of your existing Apps
 * **Pre-requisites** - Docker and Docker-Compose
-* Create a Karate feature in a location of your choice ([Karate Syntax Reference](https://github.com/intuit/karate)), Example:
+* Create a Karate feature inside your project directory ([Karate Syntax Reference](https://github.com/intuit/karate)), Example:
+In the example below I am keeping my perf test code inside ```~/my-perf-tests``` and Karate API tests inside ```karateFeatures``` directory within the project
 ```gherkin
-#~/KarateFeatures/googlesearch.feature
+#~/my-perf-tests/karateFeatures/googlesearch.feature
 Feature: Google Search
   Scenario: Ping
     Given url 'https://google.com'
     When method get
     Then status 200
 ```
-* Download the latest [Perfiz release zip file](https://github.com/znsio/perfiz/releases) file and unzip to a location of your choice
-* Set ```PERFIZ_HOME``` environment variable and add it to your ```PATH```.
-```shell script
-export PERFIZ_HOME=<path to perfiz dir>
-```
-* Change directory to ```~/KarateFeatures``` and create **perfiz.yml** file with below content
+* Change directory to ```~/my-perf-tests``` and create **perfiz.yml** file with below content
 ```yaml
+karateFeaturesDir: "karateFeatures"
 karateFeatures:
   - karateFile: "googlesearch.feature"
     gatlingSimulationName: "My Simulation"
@@ -85,7 +71,13 @@ karateFeatures:
   * Gatling records related metrics under gatlingSimulationName, which you will be able to visualize in Grafana 
   * The load pattern that should be run with that file is listed under it and it closely resembles [Gatling load patterns](https://gatling.io/docs/current/general/simulation_setup/)
   * You can repeat the karateFeature section as many times as the number of feature files you need run 
-* Now you can run the Karate feature we created in step 1 as a Gatling test with below command
+* Download the latest [Perfiz release zip file](https://github.com/znsio/perfiz/releases) file and unzip to a location of your choice
+* Set ```PERFIZ_HOME``` environment variable and add it to your ```PATH```.
+```shell script
+export PERFIZ_HOME=<path to perfiz dir>
+```
+* IMPORTANT: Make sure Docker is running
+* Now you can run the Karate feature we created in step 1 as a Gatling test with below command inside ```~/my-perf-tests```
 ```shell script
 $PERFIZ_HOME/perfiz.sh start
 ```
@@ -99,6 +91,51 @@ $PERFIZ_HOME/perfiz.sh start
     * Pre-configured with Dashboards to monitor your Gatling tests in real-time
     * Pre-configured to the above Prometheus DB as data source
 * The metrics will be visible on Grafana Dashboard
+* This is a short test that only runs for about 15 seconds, feel free to play around with the load pattern to increase the duration.
+Refer to [Perfiz YAML Configuration](https://github.com/znsio/perfiz#perfiz-yaml-documentation) to understand the above setup in detail.
+* Run below command to stop all perfiz Docker Containers
+```shell script
+$PERFIZ_HOME/perfiz.sh stop
+```
+
+### Perfiz YAML Documentation
+
+```yaml
+karateFeaturesDir: #Relative Path from you repo root to the directory containing Karate Feature Files
+                   #This is also the directory which contains your karate-config.js, Perfiz will make sure this file gets picked up by Karate Gatling
+                   #Example: src/test/karateFeatures
+karateFeatures: #List of KarateFeatures which need to be run as Load Tests
+  - karateFile: #Relative Path from the above karateFeaturesDir to a specific Karate Feature file
+                #Example: bookings/movies/reservation.feature, if your overall directory structure is <repo-root>/src/test/karateFeatures/bookings/movies/reservation.feature
+    gatlingSimulationName: #A name under which Gatling will aggregate test metrics, prefer a short descriptive name without spaces
+                           #You will be able to access this in Grafana under the same name through InfluxDB DataSource
+    loadPattern: #List of loads in the order that they need to be generated
+      - patternType: #Modelled closely after Gatling - https://gatling.io/docs/current/general/simulation_setup/
+                     #IMPORTANT: Please make sure to not mix up Open and Closed models as mentioned in above Gatling Documentation
+                     #Example: "nothingFor"
+                     #Move Examples below
+        duration: "3 seconds"
+      - patternType: "rampUsers"
+        userCount: "3"
+        duration: "3 seconds"
+      - patternType: "constantUsersPerSec"
+        userCount: "3"
+        duration: "3 seconds"
+        randomised: "false"
+      - patternType: "rampUsersPerSec"
+        userCount: "3"
+        targetUserCount: "6"
+        duration: "3 seconds"
+        randomised: "true"
+  #You can keep adding more such Karate Files
+  # - karateFile: test.feature
+  #   gatlingSimulationName: test
+  #   loadPattern:
+  #     - patternType: "rampUsers"
+  #     - userCount: "60"
+  #     - duration: "30 minutes"
+  #   and so on...
+```
 
 ### Prometheus Configuration
 
