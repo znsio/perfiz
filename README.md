@@ -37,10 +37,10 @@ This a detailed tutorial where you will be able to setup Perfiz on any of your e
 * Create a Karate feature inside your project directory ([Karate Syntax Reference](https://github.com/intuit/karate)), Example:
 In the example below I am keeping my perf test code inside ```~/my-perf-tests``` and Karate API tests inside ```karateFeatures``` directory within the project
     ```gherkin
-    #~/my-perf-tests/karateFeatures/googlesearch.feature
-    Feature: Google Search
+    #~/my-perf-tests/karateFeatures/getApiTest.feature
+    Feature: Get API Test
       Scenario: Ping
-        Given url 'https://google.com'
+        Given url '<Any URL which returns a 200 and is accessible to you>'
         When method get
         Then status 200
     ```
@@ -48,7 +48,7 @@ In the example below I am keeping my perf test code inside ```~/my-perf-tests```
     ```yaml
     karateFeaturesDir: "karateFeatures"
     karateFeatures:
-      - karateFile: "googlesearch.feature"
+      - karateFile: "getApiTest.feature"
         gatlingSimulationName: "My Simulation"
         loadPattern:
           - patternType: "nothingFor"
@@ -71,6 +71,13 @@ In the example below I am keeping my perf test code inside ```~/my-perf-tests```
     * Gatling records related metrics under gatlingSimulationName, which you will be able to visualize in Grafana 
     * The load pattern that should be run with that file is listed under it and it closely resembles [Gatling load patterns](https://gatling.io/docs/current/general/simulation_setup/)
     * You can repeat the karateFeature section as many times as the number of feature files you need run
+* Your Directory Structure should look something like this now
+    ```shell script
+    ~/my-perf-tests
+      perfiz.yaml
+      karateFeatures
+        getApiTest.feature
+    ```
 * Download the latest [Perfiz release zip file](https://github.com/znsio/perfiz/releases) file and unzip to a location of your choice
 * Set ```PERFIZ_HOME``` environment variable and add it to your ```PATH```.
     ```shell script
