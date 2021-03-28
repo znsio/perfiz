@@ -8,8 +8,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
+      - name: Update version
+        id: version
+        uses: brettdorrans/write-version-to-file@master
+        with:
+          filename: '/.VERSION'
       - name: Zip Folder
-        run: zip -r perfiz.zip .
+        run: zip -r perfiz.zip . -x *.git*
       - uses: ncipollo/release-action@v1
         with:
           artifacts: "perfiz.zip"
