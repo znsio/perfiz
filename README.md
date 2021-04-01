@@ -9,8 +9,8 @@ Jump to [quick-start](https://github.com/znsio/perfiz#quick-start)
 * Gatling and Karate-Gatling
 * Docker and Docker-Compose
 * Grafana
-* InfluxDB and Prometheus (More on this later)
-* Prometheus / Telegraf
+* Prometheus Time Series DB
+* Hooks for CAdvisor and NodeExporter
 
 ### Why
 
