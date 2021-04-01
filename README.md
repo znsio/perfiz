@@ -129,6 +129,8 @@ scrape_configs:
           - host.docker.internal:9104
 ```
 
+You can query data with PromQL on [Prometheus Expression Browser](http://localhost:9090/graph)
+
 Demo Project: [perfiz-demo](https://github.com/znsio/perfiz-demo#prometheus-and-grafana-configuration)
 
 ### Grafana Dashboards
