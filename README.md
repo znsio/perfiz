@@ -105,6 +105,45 @@ Refer to [Perfiz YAML Configuration](https://github.com/znsio/perfiz#perfiz-yaml
     $PERFIZ_HOME/perfiz.sh stop
     ```
 
+### Prometheus Configuration
+
+Create ```<you project root dir>/perfiz/prometheus/prometheus.yml``` and add your scrape configs.
+
+Example:
+
+```yaml
+global:
+  scrape_interval:     5s
+  evaluation_interval: 5s
+
+rule_files:
+
+scrape_configs:
+  - job_name: cadvisor
+    scrape_interval: 5s
+    static_configs:
+      - targets:
+          - cadvisor:8080
+  - job_name: mysql
+    scrape_interval: 5s
+    static_configs:
+      - targets:
+          - host.docker.internal:9104
+```
+
+Demo Project: [perfiz-demo](https://github.com/znsio/perfiz-demo#prometheus-and-grafana-configuration)
+
+### Grafana Dashboards
+
+* [Official Community Built Dashboards](https://grafana.com/grafana/dashboards)
+    * Download and save JSON to ```<your project root dir>/perfiz/dashboards```
+    * Perfiz will pick it up at startup and load it into Grafana
+    * This way you also be able to checkin these JSONs to your version control and share it with your team
+    * Example: [JVM Dashboard](https://github.com/znsio/perfiz-demo/blob/main/perfiz/dashboards/jvm-dashboard_rev17.json)
+* Custom / Modified Dashboards
+    * We often have to customize dashboards as per our project context
+    * After making these changes save the [JSON Model](https://grafana.com/docs/grafana/latest/dashboards/json-model/) to ```<your project root dir>/perfiz/dashboards```
+
 ### Perfiz YAML Documentation
 
 ```yaml
@@ -144,26 +183,11 @@ karateFeatures: #List of KarateFeatures which need to be run as Load Tests
   #   and so on...
 ```
 
-### Prometheus Configuration
-
-Add your scrape_configs to ```./prometheus-metrics-monitor/prometheus/prometheus.yml```
-
 ### CAdvisor Configuration - Optional
 
 We monitor Perfiz's own container metrics through CAdvisor.
 It works well on Mac OS at the moment. We are still testing Windows and Linux.
-You can disable the CAdvisor setup in ```docker-compose.yml``` if this is not a priority to you.
-
-### Optional
-
-Perfiz also includes InfluxDB. We use this to gather Gatling perf test metrics.
-
-While the preferred method to gather your app metrics in through Prometheus, you can add below lines to your telegraf.conf to push your application metrics to this InfluxDB.
-```
-[[outputs.influxdb]]
-  urls = ["http://localhost:8086"]
-  database = "telegraf"
-```
+You can disable the CAdvisor setup in ```$PERFIZ_HOME/docker-compose.yml``` if this is not a priority to you.
 
 ## Developers
 
