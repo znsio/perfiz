@@ -15,14 +15,12 @@ Jump to [quick-start](https://github.com/znsio/perfiz#quick-start)
 ### Why
 
 [Gatling](https://gatling.io/) is a capable load testing tool.
-Being able to re-use [Karate](https://intuit.github.io/karate/) API tests as Gatling performance tests with [Karate-Gatling](https://github.com/intuit/karate/tree/master/karate-gatling) helps reduce the effort to re-write the API test as a Gatling Scenario.
+Being able to re-use [Karate](https://intuit.github.io/karate/) API tests as Gatling performance tests with [Karate-Gatling](https://github.com/intuit/karate/tree/master/karate-gatling) helps reduce effort in building a Perf Test Suite.
 
 As long term users of the above tools we started seeing some patterns which we can potentially bundle as a re-usable setup.
-* **Gatling Scala DSL as YAML** - To leverage Karate scripts in Gatling, we still need to write simulations in [Gatling Scala DSL](https://github.com/intuit/karate/tree/master/karate-gatling#usage). While we like Scala and the Gatling DSL, it sometimes can seem like extra effort to non-Scala Devs.
-So we came up with a [YAML wrapper](https://github.com/znsio/perfiz#perfiz-yaml-documentation) on Gatling Scala DSL to bypass the Scala Simulation file step while still staying close Gatling vocabulary.
-* **Gatling test results as Grafana Dashboards** - [Gatling reports](https://gatling.io/docs/current/general/reports/) are comprehensive. However we often need to plot the Requests Per Second, Response Times, User Metrics etc. with X-Axis as time so that we can plot application metrics on the same time series to identify patterns. Also we sometimes need to monitor the test in realtime and we cannot wait for the report to be published after the test run. We configured Gatling to publish real time monitoring data and setup re-usable Grafana Dashboards to visualize it.
-* **Application Performance Metrics** - The purpose of a load test is to see how the application behaves as load pattern varies. Since we already have Grafana Dashboard reading from a time-series DB for Gatling metrics, we just need to send Application metrics also to this DB.
-At the moment we support Telegraf and are working on Prometheus.
+* **Gatling Scala DSL as YAML** - To leverage Karate scripts in Gatling, we still need to write simulations in [Gatling Scala DSL](https://github.com/intuit/karate/tree/master/karate-gatling#usage). While we like Scala and the Gatling DSL, it can seem like extra effort to non-Scala Devs. Especially if we are not leveraging any of the slightly more advanced features such as Feeders etc. So we came up with a [YAML wrapper](https://github.com/znsio/perfiz#perfiz-yaml-documentation) on Gatling Scala DSL to bypass the Scala Simulation file step while still staying close Gatling vocabulary.
+* **Gatling Reports as Live Grafana Dashboards** - [Gatling reports](https://gatling.io/docs/current/general/reports/) are comprehensive. However we often need to plot the Requests Per Second, Response Times, User Metrics etc. with X-Axis as time so that we can plot application metrics on the same time series to identify patterns. Also we sometimes need to monitor the test in realtime and we cannot wait for the report to be published after the test run. We configured Gatling to publish real time monitoring data and setup re-usable Grafana Dashboards to visualize it.
+* **Application Performance Metrics and Gatling Metrics Side by Side** - The purpose of a load test is to see how the application behaves as load pattern varies. So we added Prometheus to capture Application Metrics and now we can create Grafana Panels which show both Gatling Metrics and Application Metrics side by side. With Grafana [Shared Tooltip](https://grafana.com/docs/grafana/latest/whatsnew/whats-new-in-v4-1/#shared-tooltip) we can correlate application behavior and load test pattern.
 * **Containerised Approach** - Perfiz is completely Dockerised and avoids the lengthy setup required to achieve the above setup. We pre-package Grafana with the right data-sources and dashboard panels so that you can concentrate on your actual load test.
 
 ## Quick Start
@@ -138,7 +136,7 @@ Demo Project: [perfiz-demo](https://github.com/znsio/perfiz-demo#prometheus-and-
 * [Official Community Built Dashboards](https://grafana.com/grafana/dashboards)
     * Download and save JSON to ```<your project root dir>/perfiz/dashboards```
     * Perfiz will pick it up at startup and load it into Grafana
-    * This way you also be able to checkin these JSONs to your version control and share it with your team
+    * This way you will also be able to checkin these JSONs to your version control and share it with your team
     * Example: [JVM Dashboard](https://github.com/znsio/perfiz-demo/blob/main/perfiz/dashboards/jvm-dashboard_rev17.json)
 * Custom / Modified Dashboards
     * We often have to customize dashboards as per our project context
