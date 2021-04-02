@@ -173,6 +173,9 @@ karateFeatures: #List of KarateFeatures which need to be run as Load Tests
         targetUserCount: "6"
         duration: "3 seconds"
         randomised: "true"
+    uriPatterns:
+      - "/books/{isbn}" #This helps you define part in the URL that change, Gatling will capture this as a single URL with varius parameters for ISBN
+      - "/book/{isbn}/author/{authorId}" #If you are familiar with karate-gatling then this is similar to Karate Protocol - https://intuit.github.io/karate/karate-gatling/#usage
   #You can keep adding more such Karate Files
   # - karateFile: test.feature
   #   gatlingSimulationName: test
