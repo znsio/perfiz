@@ -86,6 +86,7 @@
                 <version>${gatling.plugin.version}</version>
                 <configuration>
                     <simulationsFolder>src/test/scala</simulationsFolder>
+                    <runMultipleSimulations>true</runMultipleSimulations>
                 </configuration>
                 <executions>
                     <execution>
