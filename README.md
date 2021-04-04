@@ -192,6 +192,14 @@ We monitor Perfiz's own container metrics through CAdvisor.
 It works well on Mac OS at the moment. We are still testing Windows and Linux.
 You can disable the CAdvisor setup in ```$PERFIZ_HOME/docker-compose.yml``` if this is not a priority to you.
 
+### Running Gatling Scala Simulations
+
+Our preferred approach to writing a Load test is to leverage API tests. However if you have a compelling reason to write to Scala Simualations instead of leveraging a Karate Feature
+
+and / or
+
+to support advanced usecases such as leveraging Karate Gatling Feeders, refer to this [perfiz-demo](https://github.com/znsio/perfiz-demo/tree/scala_simulations_and_feeders#advanced) branch.
+
 ## Developers
 
 To create a release push an annotated tag. Example:
