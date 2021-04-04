@@ -1,4 +1,4 @@
-# Perfiz - A Dockerised Performance Test Setup
+# Perfiz - A Dockerised API Performance Test Setup
 * Run Gatling Tests (Karate Gatling at the moment) without Java on your local machine or writing any Scala simulations
 * Visualize your Gatling Performance Test Metrics and Application Metrics side by side in Grafana in real-time
 
