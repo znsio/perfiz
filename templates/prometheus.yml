@@ -1,0 +1,27 @@
+########################### PERFIZ #####################################################################
+# Prometheus Documentation: https://prometheus.io/docs/prometheus/latest/configuration/configuration/
+# 
+# NOTE: Perfiz Prometheus is running inside Docker, so any scrape config targets running on localhost
+# should be addressed through host.docker.internal as shown in the java job example below
+#
+# By Default Perfiz Prometheus is monitoring its own CAdvisor as shown below.
+# You can change this as per your need and below configurations will overide default Perfiz Prom Configs
+########################################################################################################
+
+global:
+  scrape_interval:     5s
+  evaluation_interval: 5s
+
+rule_files:
+
+scrape_configs:
+  - job_name: cadvisor
+    scrape_interval: 5s
+    static_configs:
+      - targets:
+          - cadvisor:8080
+#  - job_name: java
+#    scrape_interval: 5s
+#    static_configs:
+#      - targets:
+#          - host.docker.internal:8089(base)
