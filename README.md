@@ -32,14 +32,14 @@ Tested on MacOS and Linux. Windows will be supported soon.
 ## Detailed Tutorial
 This a detailed tutorial where you will be able to setup Perfiz on any of your existing Apps
 * **Pre-requisites** - Docker and Docker-Compose
-* Setup Perfiz
+* **Setup Perfiz**
   * Download the latest [Perfiz release zip file](https://github.com/znsio/perfiz/releases) file and unzip to a location of your choice
   * Set ```PERFIZ_HOME``` environment variable and add it to your ```PATH```.
       ```shell script
       export PERFIZ_HOME=<path to perfiz dir>
       ```
   * IMPORTANT: Make sure Docker is running
-* Setting up your Project
+* **Setting up your Project**
   * Create a Karate feature inside your project directory ([Karate Syntax Reference](https://github.com/intuit/karate)), Example:
 In the example below I am keeping my perf test code inside ```~/my-perf-tests``` and Karate API tests inside ```karateFeatures``` directory within the project
     ```gherkin
@@ -82,14 +82,14 @@ In the example below I am keeping my perf test code inside ```~/my-perf-tests```
     * Gatling records related metrics under gatlingSimulationName, which you will be able to visualize in Grafana 
     * The load pattern that should be run with that file is listed under it and it closely resembles [Gatling load patterns](https://gatling.io/docs/current/general/simulation_setup/)
     * You can repeat the karateFeature section as many times as the number of feature files you need run
-* Your Directory Structure should look something like this now
+  * Your Directory Structure should look something like this now
     ```shell script
     ~/my-perf-tests
       perfiz.yml
       karateFeatures
         getApiTest.feature
     ```
-* Starting Perfiz Monitoring Stack
+* **Starting Perfiz Monitoring Stack**
   * Run below command to start Grafana and Prometheus based stack in Docker
     ```shell script
     $PERFIZ_HOME/perfiz.sh start
@@ -103,7 +103,7 @@ In the example below I am keeping my perf test code inside ```~/my-perf-tests```
       * Pre-configured with Dashboards to monitor your Gatling tests in real-time
       * Pre-configured to the above Prometheus DB as data source
   * You can see the details of the above setup on Docker Dashboard
-* Running your Perf Test
+* **Running your Perf Test**
   * Now you can run the Karate feature we created in step 1 as a Gatling test with below command inside ```~/my-perf-tests```
     ```shell script
     $PERFIZ_HOME/perfiz.sh test
@@ -111,7 +111,7 @@ In the example below I am keeping my perf test code inside ```~/my-perf-tests```
   * The metrics will be visible in realtime on a pre-configured sample Grafana Dashboard (localhost:3000) called "Perfiz Performance Metrics Monitor"
   * This is a short test that only runs for about 15 seconds, feel free to play around with the load pattern to increase the duration.
   Refer to [Perfiz YAML Configuration](https://github.com/znsio/perfiz#perfiz-yaml-documentation) to understand the above setup in detail.
-* Run below command to stop all Perfiz Docker Containers
+* **Stop Perfiz** - Run below command to stop all Perfiz Docker Containers
     ```shell script
     $PERFIZ_HOME/perfiz.sh stop
     ```
