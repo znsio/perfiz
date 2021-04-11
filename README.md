@@ -55,6 +55,10 @@ In the example below I am keeping my perf test code inside ```~/my-perf-tests```
     $PERFIZ_HOME/perfiz.sh init
     ```
     This will create a set of configurations Perfiz related folder structure
+  * Add below line to your .gitingore file to avoid checking Grafana and Prometheus data.
+    ```
+    perfiz/*_data
+    ```
   * Update **perfiz.yml** file which was created in above step with below content
     ```yaml
     karateFeaturesDir: "karateFeatures"
