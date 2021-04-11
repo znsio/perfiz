@@ -9,8 +9,8 @@ services:
     links:
       - prometheus:prometheus
     volumes:
-      - ./prometheus-metrics-monitor/grafana/data:/var/lib/grafana
-      - ./prometheus-metrics-monitor/grafana/dashboards:/var/lib/grafana/dashboards
+      - ${PROJECT_DIR}/perfiz/grafana_data:/var/lib/grafana
+      - ${PROJECT_DIR}/perfiz/dashboards:/var/lib/grafana/dashboards
       - ./prometheus-metrics-monitor/grafana/provisioning:/etc/grafana/provisioning
     networks:
       - perfiz-network
@@ -19,8 +19,8 @@ services:
     ports:
       - "9090:9090"
     volumes:
-      - ./prometheus-metrics-monitor/prometheus/:/etc/prometheus/
-      - ./prometheus-metrics-monitor/prometheus_data:/prometheus
+      - ${PROJECT_DIR}/perfiz/prometheus/:/etc/prometheus/
+      - ${PROJECT_DIR}/perfiz/prometheus_data:/prometheus
     depends_on:
       - cadvisor
     networks:
@@ -61,7 +61,7 @@ services:
       - "8086:8086"
       - "2003:2003"
     volumes:
-      - ./prometheus-metrics-monitor/influxdb/data:/var/lib/influxdb
+      - ${PROJECT_DIR}/perfiz/influxdb_data:/var/lib/influxdb
     networks:
       - perfiz-network
 
