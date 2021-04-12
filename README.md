@@ -25,7 +25,7 @@ As long term users of the above tools we started seeing some patterns which we c
 
 ### Use it how you like it
 
-While we are opinionated about how a performance test setup should be, it is up to you to decide how you want to leverage Perfiz.
+While we are opinionated about what a performance test setup should be, it is up to you to decide how you want to leverage Perfiz.
 * **Monitoring Platform** - No Gatling or Karate Tests, no problem. Perfiz can be a "quick to spin up", Performance Monitoring Stack.
 * **Performance Testing Learning Platform** - Perf Testing is a lot more than just the tooling and the setup can be quite daunting to people who are new to this area. Developers and Testers can avoid getting stuck in getting their setup right and instead focus on learning how design, run and analyse Performance Tests. Even as an experienced Perf Tester / Tuner, it may help you expereiment quickly and focus on learning about application behavior on your local machine.
 
