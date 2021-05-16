@@ -60,8 +60,8 @@ In the example below I am keeping my perf test code inside ```~/my-perf-tests```
     ```shell script
     $PERFIZ_HOME/perfiz.sh init
     ```
-    This will create a set of configurations Perfiz related folder structure
-  * Add below line to your .gitingore file to avoid checking Grafana and Prometheus data.
+    This will create a set of default configurations and related folder structure
+  * Add below line to your .gitingore file to avoid checking in Grafana and Prometheus data.
     ```
     perfiz/*_data
     ```
@@ -167,7 +167,23 @@ Demo Project: [perfiz-demo](https://github.com/znsio/perfiz-demo#prometheus-and-
     * We often have to customize dashboards as per our project context
     * After making these changes save the [JSON Model](https://grafana.com/docs/grafana/latest/dashboards/json-model/) to ```<your project root dir>/perfiz/dashboards```
 
-### Perfiz YAML Documentation
+### Perfiz Configuration YAML Documentation
+
+Perfiz Configuration File is where we define
+* Which tests / scenarios to run
+* Load Pattern Definition
+* URL Patterns
+* and more
+
+You can create as many Perfiz Configuration files as you like for each setup. Example:
+* Load Test for 15 min
+* Soak Test for 2 hours
+
+Each of these files now allow you to codify your tests and check them in for fellow developers.
+
+The default name for the configu file is "perfiz.yml". So when you run a Perfiz Command without a config file argument it will look for 'perfiz.yml' and pick it up.
+
+Below are all the parameters in Perfiz Config File. 
 
 ```yaml
 karateFeaturesDir: #Relative Path from you repo root to the directory containing Karate Feature Files
