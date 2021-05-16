@@ -6,13 +6,15 @@ Jump to [quick-start](https://github.com/znsio/perfiz#quick-start)
 
 ### Under the hood
 
+Below are the projects that Perfiz leverages under the hood. Quite literally Perfiz is "Standing on the shoulders of giants".
+
 * Gatling and Karate-Gatling
 * Docker and Docker-Compose
 * Grafana
 * Prometheus Time Series DB
 * Hooks for CAdvisor and NodeExporter
 
-### Why
+### Why?
 
 [Gatling](https://gatling.io/) is a capable load testing tool.
 Being able to re-use [Karate](https://intuit.github.io/karate/) API tests as Gatling performance tests with [Karate-Gatling](https://github.com/intuit/karate/tree/master/karate-gatling) helps reduce effort in building a Perf Test Suite.
@@ -23,11 +25,13 @@ As long term users of the above tools we started seeing some patterns which we c
 * **Application Performance Metrics and Gatling Metrics Side by Side** - The purpose of a load test is to see how the application behaves with load patterns. So we added Prometheus to capture Application Metrics and now we can create Grafana Panels which show both Gatling Metrics and Application Metrics side by side. With Grafana [Shared Tooltip](https://grafana.com/docs/grafana/latest/whatsnew/whats-new-in-v4-1/#shared-tooltip) we can correlate application behavior and load test pattern.
 * **Containerised Approach** - Perfiz is completely Dockerised to avoid the lengthy process required to setup all of the above tools. We pre-package Grafana with the right data-sources and dashboard panels so that you can concentrate on your actual load test.
 
-### Use it how you like it
+### How?
 
 While we are opinionated about what a performance test setup should be, it is up to you to decide how you want to leverage Perfiz.
 * **Monitoring Platform** - No Gatling or Karate Tests, no problem. Perfiz can be a "quick to spin up", Performance Monitoring Stack.
 * **Performance Testing Learning Platform** - Perf Testing is a lot more than just the tooling and the setup can be quite daunting to people who are new to this area. Developers and Testers can avoid getting stuck in getting their setup right and instead focus on learning how design, run and analyse Performance Tests. Even as an experienced Perf Tester / Tuner, it may help you expereiment quickly and focus on learning about application behavior on your local machine.
+
+In short **use it how you like it**
 
 ## Quick Start
 Go to [Perfiz Demo](https://github.com/znsio/perfiz-demo) to get your Perf test setup running in less than 5 min
@@ -224,6 +228,19 @@ karateFeatures: #List of KarateFeatures which need to be run as Load Tests
   #     - duration: "30 minutes"
   #   and so on...
 ```
+
+**IMPORTANT: Load Patterns**
+
+Because Perfiz Leverages Gatling, it is important that we understand the [Open vs Closed Worlkload Models](https://gatling.io/docs/current/general/simulation_setup/) and **avoid mixing them**.
+
+* Open model keywords
+  * nothingFor
+  * atOnceUsers
+  * rampUsers
+  * constantUsersPerSec
+  * rampUsersPerSec
+  * heavisideUsers
+* Closed model keywords - WIP in Perfiz
 
 ### CAdvisor Configuration - Optional
 
