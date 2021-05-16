@@ -193,6 +193,7 @@ Below are all the parameters in Perfiz Config File.
 karateFeaturesDir: #Relative Path from you repo root to the directory containing Karate Feature Files
                    #This is also the directory which contains your karate-config.js, Perfiz will make sure this file gets picked up by Karate Gatling
                    #Example: src/test/karateFeatures
+karateEnv: #This sets the karate.env. Provide any env that is defined in your karate-config.js that resides in the above "karateFeaturesDir"
 karateFeatures: #List of KarateFeatures which need to be run as Load Tests
   - karateFile: #Relative Path from the above karateFeaturesDir to a specific Karate Feature file
                 #Example: bookings/movies/reservation.feature, if your overall directory structure is <repo-root>/src/test/karateFeatures/bookings/movies/reservation.feature

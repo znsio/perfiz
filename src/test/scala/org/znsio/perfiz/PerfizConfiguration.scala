@@ -11,6 +11,8 @@ class PerfizConfiguration {
   @BeanProperty
   var karateFeatures: List[KarateFeature] = new ArrayList[KarateFeature]()
   @BeanProperty
+  var karateEnv: String = _
+  @BeanProperty
   var karateFeaturesDir: String = _
   @BeanProperty
   var gatlingSimulationsDir: String = _
