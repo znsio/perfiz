@@ -187,7 +187,7 @@ Example: [perfiz-demo/perfiz-staging-load-test.yml](https://github.com/znsio/per
 
 Each of these files now allow you to codify your tests and check them in for fellow developers.
 
-The default name for the configu file is "perfiz.yml". So when you run a Perfiz Command without a config file argument it will look for 'perfiz.yml' and pick it up.
+The default name for the config file is "perfiz.yml". So when you run a Perfiz Command without a config file argument it will look for 'perfiz.yml' and pick it up.
 
 Below are all the parameters in Perfiz Config File. 
 
