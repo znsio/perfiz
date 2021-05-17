@@ -175,13 +175,15 @@ Demo Project: [perfiz-demo](https://github.com/znsio/perfiz-demo#prometheus-and-
 
 Perfiz Configuration File is where we define
 * Which tests / scenarios to run
-* Load Pattern Definition
+* Load Pattern
 * URL Patterns
 * and more
 
 You can create as many Perfiz Configuration files as you like for each setup. Example:
-* Load Test for 15 min
-* Soak Test for 2 hours
+* Load Test for 15 min in Dev Env
+* Soak Test for 2 hours in Staging Env
+
+Example: [perfiz-demo/perfiz-staging-load-test.yml](https://github.com/znsio/perfiz-demo/blob/main/perfiz-staging-load-test.yml)
 
 Each of these files now allow you to codify your tests and check them in for fellow developers.
 
