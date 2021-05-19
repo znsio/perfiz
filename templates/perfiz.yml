@@ -2,10 +2,11 @@
 # Documentation: https://github.com/znsio/perfiz#perfiz-yaml-documentation
 # Example: https://github.com/znsio/perfiz-demo
 #
-# Example / Template. Uncomment below lines per your needs.
+# Example / Template. Uncomment below lines as per your needs.
 ##############################################################################
 #
 #karateFeaturesDir: "karate-features"
+#karateEnv: "dev"
 #karateFeatures:
 #  - karateFile: "petstore.feature"
 #    gatlingSimulationName: "AllGet"
