@@ -36,6 +36,9 @@ In short **use it how you like it**
 ## Quick Start
 Go to [Perfiz Demo](https://github.com/znsio/perfiz-demo) to get your Perf test setup running in less than 5 min
 
+## Practise Exercise
+Try [Practise Exercise](https://github.com/znsio/perfiz-demo/tree/practise-exercise) to get a sense of how easy it is integrate Perfiz into your project.
+
 ## Platforms
 Tested on MacOS and Linux. Windows will be supported soon.
 
