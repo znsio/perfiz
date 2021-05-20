@@ -422,7 +422,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "container_cpu_system_seconds_total{name=\"perfiz-gatling\"}",
+          "expr": "avg (rate(container_cpu_usage_seconds_total{name=\"perfiz-gatling\"}[30s]) * 100)",
           "interval": "",
           "legendFormat": "container_cpu_system_seconds_total",
           "refId": "A"
