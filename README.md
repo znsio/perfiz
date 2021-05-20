@@ -262,6 +262,12 @@ and / or
 
 to support advanced usecases such as leveraging Karate Gatling Feeders, refer to this [perfiz-demo](https://github.com/znsio/perfiz-demo/tree/scala_simulations_and_feeders#advanced) branch.
 
+## Updating Perfiz
+
+```shell script
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/znsio/perfiz/main/update.sh)"
+```
+
 ## Developers
 
 To create a release push an annotated tag. Example:
