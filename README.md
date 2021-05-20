@@ -264,9 +264,13 @@ to support advanced usecases such as leveraging Karate Gatling Feeders, refer to
 
 ## Updating Perfiz
 
+Version 0.0.9 (see ```$PERFIZ_HOME/.VERSION```) onwards, please use below script. 
+
 ```shell script
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/znsio/perfiz/main/update.sh)"
 ```
+
+On versions prior to 0.0.9, please update manually by deleting the $PERFIZ_HOME folder and downloading latest version.
 
 ## Developers
 
