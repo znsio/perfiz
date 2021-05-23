@@ -8,10 +8,10 @@ import io.gatling.core.controller.inject.open._
 import io.gatling.core.structure.PopulationBuilder
 import org.yaml.snakeyaml.Yaml
 import org.yaml.snakeyaml.constructor.Constructor
-import org.znsio.perfiz.LoadPattern.{AtOnceUsers, ConstantUsersPerSecond, HeavisideUsers, NothingFor, RampUsers, RampUsersPerSecond}
+import org.znsio.perfiz.ClosedLoadPattern.{ConstantConcurrentUsers, RampConcurrentUsers}
+import org.znsio.perfiz.OpenLoadPattern._
 
 import scala.collection.JavaConverters._
-import scala.concurrent.duration._
 import scala.language.postfixOps
 
 class PerfizSimulation extends Simulation {
@@ -21,8 +21,11 @@ class PerfizSimulation extends Simulation {
   )
 
   private val builders: List[PopulationBuilder] = configuration.getKarateFeatures.asScala.toList.map(karateFeatureConfig => {
-    val injections = karateFeatureConfig.getLoadPattern.asScala.toList.map(f = loadPattern => {
-      val injectionStep = loadPattern.getPatternType match {
+    val openInjectionSteps = karateFeatureConfig.getLoadPattern.asScala.toList.filter(loadPattern => {
+      val openModelLoadPatterns = List(NothingFor, AtOnceUsers, RampUsers, ConstantUsersPerSecond, RampUsersPerSecond, HeavisideUsers)
+      openModelLoadPatterns.contains(loadPattern.patternType)
+    }).map(f = loadPattern => {
+      val openInjectionStep = loadPattern.getPatternType match {
         case NothingFor => nothingFor(loadPattern.durationAsFiniteDuration)
         case AtOnceUsers => atOnceUsers(loadPattern.getUserCount)
         case RampUsers => rampUsers(loadPattern.getUserCount) during
@@ -35,21 +38,41 @@ class PerfizSimulation extends Simulation {
         case HeavisideUsers => heavisideUsers(loadPattern.getUserCount) during
           loadPattern.durationAsFiniteDuration
       }
+
       if (loadPattern.randomised) {
-        injectionStep match {
-          case ConstantRateOpenInjection(_, _) => injectionStep.asInstanceOf[ConstantRateOpenInjection] randomized
-          case RampRateOpenInjection(_, _, _) => injectionStep.asInstanceOf[RampRateOpenInjection] randomized
-          case _ => injectionStep
+        openInjectionStep match {
+          case ConstantRateOpenInjection(_, _) => openInjectionStep.asInstanceOf[ConstantRateOpenInjection] randomized
+          case RampRateOpenInjection(_, _, _) => openInjectionStep.asInstanceOf[RampRateOpenInjection] randomized
+          case _ => openInjectionStep
         }
-      } else injectionStep
+      } else openInjectionStep
+    })
+    val closedInjectionSteps = karateFeatureConfig.getLoadPattern.asScala.toList.filter(loadPattern => {
+      val closedModelLoadPatterns = List(ConstantConcurrentUsers, RampConcurrentUsers)
+      closedModelLoadPatterns.contains(loadPattern.patternType)
+    }).map(f = loadPattern => {
+      loadPattern.getPatternType match {
+        case ConstantConcurrentUsers => constantConcurrentUsers(loadPattern.getUserCount) during
+          loadPattern.durationAsFiniteDuration
+        case RampConcurrentUsers => rampConcurrentUsers(loadPattern.getUserCount) to
+          loadPattern.targetUserCount during
+          loadPattern.durationAsFiniteDuration
+      }
     })
     val protocol = karateProtocol(
       karateFeatureConfig.uriPatterns.asScala.map { uriPattern => uriPattern -> Nil }: _*
     )
-    scenario(karateFeatureConfig.getGatlingSimulationName).
-      exec(karateFeature("classpath:" + karateFeatureConfig.getKarateFile)).
-      inject(injections).
-      protocols(protocol)
+    if(!openInjectionSteps.isEmpty) {
+      scenario(karateFeatureConfig.getGatlingSimulationName).
+        exec(karateFeature("classpath:" + karateFeatureConfig.getKarateFile)).
+        inject(openInjectionSteps).
+        protocols(protocol)
+    } else {
+      scenario(karateFeatureConfig.getGatlingSimulationName).
+        exec(karateFeature("classpath:" + karateFeatureConfig.getKarateFile)).
+        inject(closedInjectionSteps).
+        protocols(protocol)
+    }
   })
 
   setUp(

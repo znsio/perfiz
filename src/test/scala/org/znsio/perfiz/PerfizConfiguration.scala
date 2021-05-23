@@ -1,10 +1,8 @@
 package org.znsio.perfiz
 
-import com.fasterxml.jackson.annotation.{JsonAnySetter, JsonIgnore, JsonInclude, JsonProperty, JsonPropertyOrder}
+import java.util.{ArrayList, List}
 
 import scala.beans.BeanProperty
-import java.util.{ArrayList, HashMap, List, Map}
-
 import scala.concurrent.duration.{Duration, FiniteDuration}
 
 class PerfizConfiguration {
@@ -26,13 +24,13 @@ class KarateFeature {
   var gatlingSimulationName: String = _
 
   @BeanProperty
-  var loadPattern: List[LoadPattern] = new ArrayList[LoadPattern]()
+  var loadPattern: List[OpenLoadPattern] = new ArrayList[OpenLoadPattern]()
 
   @BeanProperty
   var uriPatterns: List[String] = new ArrayList[String]()
 }
 
-class LoadPattern {
+class OpenLoadPattern {
   @BeanProperty
   var patternType: String = _
 
@@ -51,11 +49,16 @@ class LoadPattern {
   def durationAsFiniteDuration = Duration(duration).asInstanceOf[FiniteDuration]
 }
 
-object LoadPattern {
+object OpenLoadPattern {
   val NothingFor = "nothingFor"
   val AtOnceUsers = "atOnceUsers"
   val RampUsers = "rampUsers"
   val ConstantUsersPerSecond = "constantUsersPerSec"
   val RampUsersPerSecond = "rampUsersPerSec"
   val HeavisideUsers = "heavisideUsers"
+}
+
+object ClosedLoadPattern {
+  val ConstantConcurrentUsers = "constantConcurrentUsers"
+  val RampConcurrentUsers = "rampConcurrentUsers"
 }
