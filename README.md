@@ -33,148 +33,107 @@ While we are opinionated about what a performance test setup should be, it is up
 
 In short **use it how you like it**
 
-## Quick Start
-Go to [Perfiz Demo](https://github.com/znsio/perfiz-demo) to get your Perf test setup running in less than 5 min
+## Installation and Upgrades
 
-## Practise Exercise
-Try [Practise Exercise](https://github.com/znsio/perfiz-demo/tree/practise-exercise) to get a sense of how easy it is integrate Perfiz into your project.
+**Platforms** - Tested on MacOS and Linux. Windows will be supported soon.
 
-## Platforms
-Tested on MacOS and Linux. Windows will be supported soon.
+### Installation
 
-## Detailed Tutorial
-This a detailed tutorial where you will be able to setup Perfiz on any of your existing Apps
 * **Pre-requisites** - Docker and Docker-Compose
 * **Setup Perfiz**
   * Download the latest [Perfiz release zip file](https://github.com/znsio/perfiz/releases) file and unzip to a location of your choice
   * Set ```PERFIZ_HOME``` environment variable and add it to your ```PATH```.
-      ```shell script
+    ```shell script
       export PERFIZ_HOME=<path to perfiz dir>
-      ```
+    ```
   * IMPORTANT: Make sure Docker is running
-* **Setting up your Project**
-  * Create a Karate feature inside your project directory ([Karate Syntax Reference](https://github.com/intuit/karate)), Example:
-In the example below I am keeping my perf test code inside ```~/my-perf-tests``` and Karate API tests inside ```karateFeatures``` directory within the project
-    ```gherkin
-    #~/my-perf-tests/karateFeatures/getApiTest.feature
-    Feature: Get API Test
-      Scenario: Ping
-        Given url '<Any URL which returns a 200 and is accessible to you>'
-        When method get
-        Then status 200
-    ```
-  * Change directory to ```~/my-perf-tests``` and run below command.
+* **Init**
+  * Run below command inside your Project Root Directory to add Perfiz related files and folders
     ```shell script
-    $PERFIZ_HOME/perfiz.sh init
+        $PERFIZ_HOME/perfiz.sh init
     ```
-    This will create a set of default configurations and related folder structure
+  * Your project directory structure will look something like this
+    ```shell script
+    <your project root dir>/
+      <your project files>
+      perfiz.yml # perfiz config template
+      perfiz/
+        gatling/
+          gatling.conf # template file
+        prometheus/
+          prometheus.yml # template file
+        dashboards/
+          dashboard.json # sample grafana dashboard
+    ```
   * Add below line to your .gitingore file to avoid checking in Grafana and Prometheus data.
-    ```
-    perfiz/*_data
-    ```
-  * Update **perfiz.yml** file which was created in above step with below content
-    ```yaml
-    karateFeaturesDir: "karateFeatures"
-    karateFeatures:
-      - karateFile: "getApiTest.feature"
-        gatlingSimulationName: "My Simulation"
-        loadPattern:
-          - patternType: "nothingFor"
-            duration: "3 seconds"
-          - patternType: "rampUsers"
-            userCount: "3"
-            duration: "3 seconds"
-          - patternType: "constantUsersPerSec"
-            userCount: "3"
-            duration: "3 seconds"
-            randomised: "false"
-          - patternType: "rampUsersPerSec"
-            userCount: "3"
-            targetUserCount: "6"
-            duration: "3 seconds"
-            randomised: "true"
-    ```
-    * The above configuration has one karateFeature yaml item per Karate Feature file
-    * In karateFile property, path to feature file should be relative to the ```perfiz.yml``` file
-    * Gatling records related metrics under gatlingSimulationName, which you will be able to visualize in Grafana 
-    * The load pattern that should be run with that file is listed under it and it closely resembles [Gatling load patterns](https://gatling.io/docs/current/general/simulation_setup/)
-    * You can repeat the karateFeature section as many times as the number of feature files you need run
-  * Your Directory Structure should look something like this now
-    ```shell script
-    ~/my-perf-tests
-      perfiz.yml
-      karateFeatures
-        getApiTest.feature
-    ```
-* **Starting Perfiz Monitoring Stack**
-  * Run below command to start Grafana and Prometheus based stack in Docker
-    ```shell script
-    $PERFIZ_HOME/perfiz.sh start
-    ```
-  * Launch Grafana on your browser on localhost:3000. It may ask you to change the password.
-    * UserName - admin
-    * Password - admin
-  * You now have a Performance Testing Monitoring setup running. This includes
-    * Prometheus - to gather your application metrics
-    * Grafana
-      * Pre-configured with Dashboards to monitor your Gatling tests in real-time
-      * Pre-configured to the above Prometheus DB as data source
-  * You can see the details of the above setup on Docker Dashboard
-* **Running your Perf Test**
-  * Now you can run the Karate feature we created in step 1 as a Gatling test with below command inside ```~/my-perf-tests```
-    ```shell script
-    $PERFIZ_HOME/perfiz.sh test
-    ```
-  * The metrics will be visible in realtime on a pre-configured sample Grafana Dashboard (localhost:3000) called "Perfiz Performance Metrics Monitor"
-  * This is a short test that only runs for about 15 seconds, feel free to play around with the load pattern to increase the duration.
-  Refer to [Perfiz YAML Configuration](https://github.com/znsio/perfiz#perfiz-yaml-documentation) to understand the above setup in detail.
-* **Stop Perfiz** - Run below command to stop all Perfiz Docker Containers
-    ```shell script
-    $PERFIZ_HOME/perfiz.sh stop
-    ```
+    ```perfiz/*_data```
+    
+### Updating Perfiz
 
-### Prometheus Configuration
+Paste below script in a macOS Terminal or Linux shell prompt. 
 
-Create / Update ```<you project root dir>/perfiz/prometheus/prometheus.yml``` and add your scrape configs.
-
-Example:
-
-```yaml
-global:
-  scrape_interval:     5s
-  evaluation_interval: 5s
-
-rule_files:
-
-scrape_configs:
-  - job_name: cadvisor
-    scrape_interval: 5s
-    static_configs:
-      - targets:
-          - cadvisor:8080
-  - job_name: mysql
-    scrape_interval: 5s
-    static_configs:
-      - targets:
-          - host.docker.internal:9104
+```shell script
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/znsio/perfiz/main/update.sh)"
 ```
 
-You can query data with PromQL on [Prometheus Expression Browser](http://localhost:9090/graph)
+On versions prior to 0.0.9 (check ```$PERFIZ_HOME/.VERSION```), please update manually by deleting the $PERFIZ_HOME folder and download latest version and unzip it.
 
-Demo Project: [perfiz-demo](https://github.com/znsio/perfiz-demo#prometheus-and-grafana-configuration)
+## Tutorials and Exercises
 
-### Grafana Dashboards
+The only pre-requisite for below tutorials and exercises is **Docker** (> [version 20.10.0](https://docs.docker.com/engine/release-notes/#20100)). No other local setup required.
 
-* [Official Community Built Dashboards](https://grafana.com/grafana/dashboards)
-    * Download and save JSON to ```<your project root dir>/perfiz/dashboards```
-    * Perfiz will pick it up at startup and load it into Grafana
-    * This way you will also be able to checkin these JSONs to your version control and share it with your team
-    * Example: [JVM Dashboard](https://github.com/znsio/perfiz-demo/blob/main/perfiz/dashboards/jvm-dashboard_rev17.json)
-* Custom / Modified Dashboards
-    * We often have to customize dashboards as per our project context
-    * After making these changes save the [JSON Model](https://grafana.com/docs/grafana/latest/dashboards/json-model/) to ```<your project root dir>/perfiz/dashboards```
+### Quick Start / Demo (5 min)
+A project with all the pieces in place to help you try our Perfiz.
 
-### Perfiz Configuration YAML Documentation
+Go to [Perfiz Demo](https://github.com/znsio/perfiz-demo)
+
+### Practise Exercise (5 min)
+* Learn how to integrate Perfiz into a project from scratch.
+* This exercise already has sample project with REST API and related Karate API tests.
+* Your task will be to leverage the Karate API tests as Perf Tests and visualize the reports in Grafana.
+
+Go to [Practise Exercise](https://github.com/znsio/perfiz-demo/tree/practise-exercise)
+
+### Running Gatling Scala Simulations (5 min)
+A majority of load patterns can be described with [Perfiz YAML syntax](https://github.com/znsio/perfiz#perfiz-yaml-documentation).
+Also, our preferred approach is to leverage Karate API tests as Gatling Performance Tests.
+
+However, if you need to author Gatling Scala Simulations for advances use cases like
+* Gatling [Meta DSL](https://gatling.io/docs/current/general/simulation_setup/#meta-dsl)
+* Karate Gatling [Feeders](https://intuit.github.io/karate/karate-gatling/#feeders)
+
+Perfiz supports running Gatling Scala Simulations with or without Karate API Tests.
+
+Go to [Perfiz Advanced Demo](https://github.com/znsio/perfiz-demo/tree/scala_simulations_and_feeders#advanced)
+
+### Prometheus Querying and Configuration (5 min)
+
+* Learn how to access your PromQL expression browser
+* Adding additional scrape configs to ```prometheus.yml``` to monitor a Java application.
+
+Go to [Perfiz Prometheus Config](https://github.com/znsio/perfiz-demo#prometheus-configuration---adding-scrape-configs)
+
+### Grafana Dashboards (3 min)
+
+* Learn how to leverage [Official Community Built Dashboards](https://grafana.com/grafana/dashboards)
+* Customize / Modify Dashboards and check them into version control
+
+Go to [Perfiz Grafana Dashboards](https://github.com/znsio/perfiz-demo#grafana-dashboards---adding-jvm-dashboard)
+
+### Karate Config (3 min)
+
+* Learn how to refer to "karate.env" that is defined in your ```karate-config.js```
+* Create multiple Perfiz config files for each of your load tests
+
+Go to [Perfiz Karate-Config](https://github.com/znsio/perfiz-demo#setting-karateenv)
+
+### CAdvisor Configuration - Optional
+
+We monitor Perfiz's own container metrics through CAdvisor.
+It works well on Mac OS at the moment. We are still testing Windows and Linux.
+You can disable the CAdvisor setup in ```$PERFIZ_HOME/docker-compose.yml``` if this is not a priority to you.
+
+## Perfiz Configuration YAML Documentation
 
 Perfiz Configuration File is where we define
 * Which tests / scenarios to run
@@ -186,7 +145,9 @@ You can create as many Perfiz Configuration files as you like for each setup. Ex
 * Load Test for 15 min in Dev Env
 * Soak Test for 2 hours in Staging Env
 
-Example: [perfiz-demo/perfiz-staging-load-test.yml](https://github.com/znsio/perfiz-demo/blob/main/perfiz-staging-load-test.yml)
+**Examples:**
+* [perfiz-demo/perfiz-staging-load-test.yml](https://github.com/znsio/perfiz-demo/blob/main/perfiz-staging-load-test.yml)
+* [perfiz-demo/perfiz-closed-loadpattern.yml](https://github.com/znsio/perfiz-demo/blob/main/perfiz-closed-loadpattern.yml)
 
 Each of these files now allow you to codify your tests and check them in for fellow developers.
 
@@ -246,31 +207,9 @@ Because Perfiz Leverages Gatling, it is important that we understand the [Open v
   * constantUsersPerSec
   * rampUsersPerSec
   * heavisideUsers
-* Closed model keywords - WIP in Perfiz
-
-### CAdvisor Configuration - Optional
-
-We monitor Perfiz's own container metrics through CAdvisor.
-It works well on Mac OS at the moment. We are still testing Windows and Linux.
-You can disable the CAdvisor setup in ```$PERFIZ_HOME/docker-compose.yml``` if this is not a priority to you.
-
-### Running Gatling Scala Simulations
-
-Our preferred approach to writing a Load test is to leverage API tests. However if you have a compelling reason to write to Scala Simualations instead of leveraging a Karate Feature
-
-and / or
-
-to support advanced usecases such as leveraging Karate Gatling Feeders, refer to this [perfiz-demo](https://github.com/znsio/perfiz-demo/tree/scala_simulations_and_feeders#advanced) branch.
-
-## Updating Perfiz
-
-Paste below script in a macOS Terminal or Linux shell prompt. 
-
-```shell script
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/znsio/perfiz/main/update.sh)"
-```
-
-On versions prior to 0.0.9 (check ```$PERFIZ_HOME/.VERSION```), please update manually by deleting the $PERFIZ_HOME folder and download latest version and unzip it.
+* Closed model keywords
+  * constantConcurrentUsers
+  * rampConcurrentUsers
 
 ## Developers
 
