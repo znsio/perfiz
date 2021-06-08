@@ -17,6 +17,9 @@
         <maven.compiler.version>3.8.1</maven.compiler.version>
         <karate.version>0.9.6</karate.version>
         <gatling.plugin.version>3.1.2</gatling.plugin.version>
+        <sonar.projectKey>znsio_perfiz</sonar.projectKey>
+        <sonar.organization>znsio</sonar.organization>
+        <sonar.host.url>https://sonarcloud.io</sonar.host.url>
     </properties>
 
     <repositories>
