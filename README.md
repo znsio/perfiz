@@ -11,7 +11,7 @@ Jump to [quick-start](https://github.com/znsio/perfiz#quick-start--demo-5-min)
 Below are the projects that Perfiz leverages under the hood. Quite literally Perfiz is "Standing on the shoulders of giants".
 
 * Gatling and Karate-Gatling
-* Docker and Docker-Compose
+* Docker
 * Grafana
 * Prometheus Time Series DB
 * Hooks for CAdvisor and NodeExporter
