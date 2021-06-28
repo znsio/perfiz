@@ -11,7 +11,7 @@ import org.yaml.snakeyaml.constructor.Constructor
 import org.znsio.perfiz.ClosedLoadPattern.{ConstantConcurrentUsers, RampConcurrentUsers}
 import org.znsio.perfiz.OpenLoadPattern._
 
-import scala.collection.JavaConverters._
+import scala.jdk.CollectionConverters._
 import scala.language.postfixOps
 
 class PerfizSimulation extends Simulation {
@@ -20,22 +20,22 @@ class PerfizSimulation extends Simulation {
     new FileInputStream(new File(System.getProperty("PERFIZ")))
   )
 
-  private val builders: List[PopulationBuilder] = configuration.getKarateFeatures.asScala.toList.map(karateFeatureConfig => {
-    val openInjectionSteps = karateFeatureConfig.getLoadPattern.asScala.toList.filter(loadPattern => {
+  private val builders: List[PopulationBuilder] = configuration.getKarateFeatures().asScala.toList.map(karateFeatureConfig => {
+    val openInjectionSteps = karateFeatureConfig.getLoadPattern().asScala.toList.filter(loadPattern => {
       val openModelLoadPatterns = List(NothingFor, AtOnceUsers, RampUsers, ConstantUsersPerSecond, RampUsersPerSecond, HeavisideUsers)
       openModelLoadPatterns.contains(loadPattern.patternType)
     }).map(f = loadPattern => {
-      val openInjectionStep = loadPattern.getPatternType match {
+      val openInjectionStep = loadPattern.getPatternType() match {
         case NothingFor => nothingFor(loadPattern.durationAsFiniteDuration)
-        case AtOnceUsers => atOnceUsers(loadPattern.getUserCount)
-        case RampUsers => rampUsers(loadPattern.getUserCount) during
+        case AtOnceUsers => atOnceUsers(loadPattern.getUserCount())
+        case RampUsers => rampUsers(loadPattern.getUserCount()) during
           loadPattern.durationAsFiniteDuration
-        case ConstantUsersPerSecond => constantUsersPerSec(loadPattern.getUserCount) during
+        case ConstantUsersPerSecond => constantUsersPerSec(loadPattern.getUserCount()) during
           loadPattern.durationAsFiniteDuration
-        case RampUsersPerSecond => rampUsersPerSec(loadPattern.getUserCount) to
-          loadPattern.targetUserCount during
+        case RampUsersPerSecond => rampUsersPerSec(loadPattern.getUserCount()) to
+          loadPattern.getTargetUserCount() during
           loadPattern.durationAsFiniteDuration
-        case HeavisideUsers => heavisideUsers(loadPattern.getUserCount) during
+        case HeavisideUsers => heavisideUsers(loadPattern.getUserCount()) during
           loadPattern.durationAsFiniteDuration
       }
 
@@ -47,29 +47,29 @@ class PerfizSimulation extends Simulation {
         }
       } else openInjectionStep
     })
-    val closedInjectionSteps = karateFeatureConfig.getLoadPattern.asScala.toList.filter(loadPattern => {
+    val closedInjectionSteps = karateFeatureConfig.getLoadPattern().asScala.toList.filter(loadPattern => {
       val closedModelLoadPatterns = List(ConstantConcurrentUsers, RampConcurrentUsers)
       closedModelLoadPatterns.contains(loadPattern.patternType)
     }).map(f = loadPattern => {
-      loadPattern.getPatternType match {
-        case ConstantConcurrentUsers => constantConcurrentUsers(loadPattern.getUserCount) during
+      loadPattern.getPatternType() match {
+        case ConstantConcurrentUsers => constantConcurrentUsers(loadPattern.getUserCount()) during
           loadPattern.durationAsFiniteDuration
-        case RampConcurrentUsers => rampConcurrentUsers(loadPattern.getUserCount) to
-          loadPattern.targetUserCount during
+        case RampConcurrentUsers => rampConcurrentUsers(loadPattern.getUserCount()) to
+          loadPattern.getTargetUserCount() during
           loadPattern.durationAsFiniteDuration
       }
     })
     val protocol = karateProtocol(
-      karateFeatureConfig.uriPatterns.asScala.map { uriPattern => uriPattern -> Nil }: _*
+      karateFeatureConfig.getUriPatterns().asScala.map { uriPattern => uriPattern -> Nil }.toList: _*
     )
-    if(!openInjectionSteps.isEmpty) {
-      scenario(karateFeatureConfig.getGatlingSimulationName).
-        exec(karateFeature("classpath:" + karateFeatureConfig.getKarateFile)).
+    if (!openInjectionSteps.isEmpty) {
+      scenario(karateFeatureConfig.getGatlingSimulationName()).
+        exec(karateFeature("classpath:" + karateFeatureConfig.getKarateFile())).
         inject(openInjectionSteps).
         protocols(protocol)
     } else {
-      scenario(karateFeatureConfig.getGatlingSimulationName).
-        exec(karateFeature("classpath:" + karateFeatureConfig.getKarateFile)).
+      scenario(karateFeatureConfig.getGatlingSimulationName()).
+        exec(karateFeature("classpath:" + karateFeatureConfig.getKarateFile())).
         inject(closedInjectionSteps).
         protocols(protocol)
     }
