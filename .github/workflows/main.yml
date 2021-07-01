@@ -11,7 +11,7 @@ jobs:
       - name: Write Version
         run: git describe > .VERSION
       - name: Zip Folder
-        run: zip -r perfiz.zip . -x *.git* -x assets
+        run: zip -r perfiz.zip . -x *.git*
       - uses: ncipollo/release-action@v1
         with:
           artifacts: "perfiz.zip"
