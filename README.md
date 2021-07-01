@@ -4,6 +4,8 @@
 * Run Gatling Tests (Karate Gatling at the moment) without Java on your local machine or writing any Scala simulations
 * Visualize your Gatling Performance Test Metrics and Application Metrics side by side in Grafana in real-time
 
+![Grafana Screenshot](https://github.com/znsio/perfiz-demo/blob/main/assets/grafana-test.png)
+
 Jump to [quick-start](https://github.com/znsio/perfiz#quick-start--demo-5-min)
 
 ### Under the hood
