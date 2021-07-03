@@ -7,7 +7,8 @@
 
   "runArgs": [
     "-u", "jekyll",
-    "-v", "${env:HOME}${env:USERPROFILE}/.ssh:/root/.ssh-localhost:ro"
+    "-v", "${env:HOME}${env:USERPROFILE}/.ssh:/root/.ssh-localhost:ro",
+    "--publish", "4000"
   ],
 
   "remoteUser": "jekyll",
@@ -17,7 +18,6 @@
   },
 
   "appPort": [4000],
-  "forwardPorts": [3000],
 
   "extensions": [
     "redhat.vscode-yaml",

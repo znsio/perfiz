@@ -24,70 +24,6 @@ Below are the projects that Perfiz leverages under the hood. Quite literally Per
 * Prometheus Time Series DB
 * Hooks for CAdvisor and NodeExporter
 
-### Why?
-
-[Gatling](https://gatling.io/) is a capable load testing tool.
-Being able to re-use [Karate](https://intuit.github.io/karate/) API tests as Gatling performance tests with [Karate-Gatling](https://github.com/intuit/karate/tree/master/karate-gatling) helps reduce effort in building a Perf Test Suite.
-
-As long term users of the above tools we started seeing some patterns which we can potentially bundle as a re-usable setup.
-* **Gatling Scala DSL as YAML** - To leverage Karate scripts in Gatling, we still need to write simulations in [Gatling Scala DSL](https://github.com/intuit/karate/tree/master/karate-gatling#usage). While we like Scala and the Gatling DSL, it can seem like extra effort to non-Scala Devs. Especially if we are not leveraging any of the slightly more advanced features such as Feeders etc. So we came up with a [YAML wrapper](https://github.com/znsio/perfiz#perfiz-yaml-documentation) on Gatling Scala DSL to bypass the Scala Simulation file step while still staying close Gatling vocabulary.
-* **Gatling Reports as Live Grafana Dashboards** - [Gatling reports](https://gatling.io/docs/current/general/reports/) are comprehensive. However these reports are only generated after the test run is completed and does not allow us to deep dive, zoom-in and analyse specific points during the test. To solve this, we configured Gatling to publish real time monitoring data and setup re-usable Grafana Dashboards to visualize it.
-* **Application Performance Metrics and Gatling Metrics Side by Side** - The purpose of a load test is to see how the application behaves with load patterns. So we added Prometheus to capture Application Metrics and now we can create Grafana Panels which show both Gatling Metrics and Application Metrics side by side. With Grafana [Shared Tooltip](https://grafana.com/docs/grafana/latest/whatsnew/whats-new-in-v4-1/#shared-tooltip) we can correlate application behavior and load test pattern.
-* **Containerised Approach** - Perfiz is completely Dockerised to avoid the lengthy process required to setup all of the above tools. We pre-package Grafana with the right data-sources and dashboard panels so that you can concentrate on your actual load test.
-
-### How?
-
-While we are opinionated about what a performance test setup should be, it is up to you to decide how you want to leverage Perfiz.
-* **Monitoring Platform** - No Gatling or Karate Tests, no problem. Perfiz can be a "quick to spin up", Performance Monitoring Stack.
-* **Learning Platform** - Perf Testing is a lot more than just tooling. Also setting up the tools can be quite daunting to people who are new to this area. Developers and Testers can avoid getting stuck in getting their setup right and instead focus on learning how to design, run and analyse Performance Tests. Even as an experienced Perf Tester / Tuner, it may help you experiment quickly and focus on learning about application behavior on your local machine.
-
-In short **use it how you like it**
-
-## Installation and Upgrades
-
-**Platforms** - Tested on MacOS and Linux. Windows will be supported soon.
-
-### Installation
-
-* **Pre-requisites** - Docker >= 20.10.*
-* **Setup Perfiz**
-  * Download the latest [Perfiz release zip file](https://github.com/znsio/perfiz/releases) file and unzip to a location of your choice
-  * Set ```PERFIZ_HOME``` environment variable and add it to your ```PATH```.
-    ```shell script
-      export PERFIZ_HOME=<path to perfiz dir>
-    ```
-  * IMPORTANT: Make sure Docker is running
-* **Init**
-  * Run below command inside your Project Root Directory to add Perfiz related files and folders
-    ```shell script
-        $PERFIZ_HOME/perfiz.sh init
-    ```
-  * Your project directory structure will look something like this
-    ```shell script
-    <your project root dir>/
-      <your project files>
-      perfiz.yml # perfiz config template
-      perfiz/
-        gatling/
-          gatling.conf # template file
-        prometheus/
-          prometheus.yml # template file
-        dashboards/
-          dashboard.json # sample grafana dashboard
-    ```
-  * Add below line to your .gitingore file to avoid checking in Grafana and Prometheus data.
-    ```perfiz/*_data```
-    
-### Updating Perfiz
-
-Paste below script in a macOS Terminal or Linux shell prompt. 
-
-```shell script
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/znsio/perfiz/main/update.sh)"
-```
-
-On versions prior to 0.0.9 (check ```$PERFIZ_HOME/.VERSION```), please update manually by deleting the $PERFIZ_HOME folder and download latest version and unzip it.
-
 ## Tutorials and Exercises
 
 The only pre-requisite for below tutorials and exercises is **Docker** (> [version 20.10.0](https://docs.docker.com/engine/release-notes/#20100)). No other local setup required.
@@ -228,7 +164,7 @@ Because Perfiz Leverages Gatling, it is important that we understand the [Open v
 ## Developers
 
 To create a release push an annotated tag. Example:
-```shell script
+```shell
 git tag -a <release version> -m "<release message>"
 git push origin <release version>
 ```
