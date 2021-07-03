@@ -1,0 +1,18 @@
+.idea
+*.iml
+!/.gitignore
+.cache
+.history
+.DS_Store
+.m2
+/target
+
+### Gatling ###
+results/
+metrics-monitor/influxdb/
+metrics-monitor/grafana/
+
+### Prometheus ###
+prometheus-metrics-monitor/prometheus_data/
+prometheus-metrics-monitor/grafana/data
+prometheus-metrics-monitor/influxdb/
