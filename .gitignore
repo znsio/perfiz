@@ -1,18 +1,20 @@
-.idea
+_site
+.sass-cache
+.jekyll-cache
+.jekyll-metadata
+vendor
+.idea/*
+dependency-reduced-pom.xml
 *.iml
-!/.gitignore
-.cache
-.history
+target/*
 .DS_Store
-.m2
-/target
-
-### Gatling ###
-results/
-metrics-monitor/influxdb/
-metrics-monitor/grafana/
-
-### Prometheus ###
-prometheus-metrics-monitor/prometheus_data/
-prometheus-metrics-monitor/grafana/data
-prometheus-metrics-monitor/influxdb/
+.gradle/*
+**/build/*
+gen/*
+*.class
+**/.zookeeper/*
+core/out
+**/core/target/*
+jmx/jmx_prometheus_javaagent-0.15.0.jar
+perfiz/*_data
+results

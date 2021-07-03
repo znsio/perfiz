@@ -1,1 +1,12 @@
-theme: jekyll-theme-tactile
+remote_theme: pmarsceill/just-the-docs
+markdown: kramdown
+title: "Perfiz"
+
+aux_links:
+  "Perfiz on GitHub":
+    - "//github.com/znsio/perfiz"
+
+plugins:
+  - jekyll-remote-theme
+
+logo: "/images/perfiz-logo.png"

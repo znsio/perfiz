@@ -1,8 +1,16 @@
+---
+# Feel free to add content and custom Front Matter to this file.
+# To modify the layout, see https://jekyllrb.com/docs/themes/#overriding-theme-defaults
+
+layout: home
+---
 [![CI Build](https://github.com/znsio/perfiz/actions/workflows/CI.yml/badge.svg)](https://github.com/znsio/perfiz/actions/workflows/CI.yml)
 
 # Perfiz - A Dockerised API Performance Test Setup
 * Run Gatling Tests (Karate Gatling at the moment) without Java on your local machine or writing any Scala simulations
 * Visualize your Gatling Performance Test Metrics and Application Metrics side by side in Grafana in real-time
+
+![Grafana Screenshot](/assets/grafana-test.png)
 
 Jump to [quick-start](https://github.com/znsio/perfiz#quick-start--demo-5-min)
 
@@ -41,7 +49,7 @@ In short **use it how you like it**
 
 ### Installation
 
-* **Pre-requisites** - Docker and Docker-Compose
+* **Pre-requisites** - Docker >= 20.10.*
 * **Setup Perfiz**
   * Download the latest [Perfiz release zip file](https://github.com/znsio/perfiz/releases) file and unzip to a location of your choice
   * Set ```PERFIZ_HOME``` environment variable and add it to your ```PATH```.
