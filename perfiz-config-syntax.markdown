@@ -12,18 +12,6 @@ Perfiz Configuration File is where we define
 * URL Patterns
 * and more
 
-You can create as many Perfiz Configuration files as you like for each setup. Example:
-* Load Test for 15 min in Dev Env
-* Soak Test for 2 hours in Staging Env
-
-**Examples:**
-* [perfiz-demo/perfiz-staging-load-test.yml](https://github.com/znsio/perfiz-demo/blob/main/perfiz-staging-load-test.yml)
-* [perfiz-demo/perfiz-closed-loadpattern.yml](https://github.com/znsio/perfiz-demo/blob/main/perfiz-closed-loadpattern.yml)
-
-Each of these files now allow you to codify your tests and check them in for fellow developers.
-
-The default name for the config file is "perfiz.yml". So when you run a Perfiz Command without a config file argument it will look for 'perfiz.yml' and pick it up.
-
 Below are all the parameters in Perfiz Config File.
 
 ```yaml
@@ -67,7 +55,7 @@ karateFeatures: #List of KarateFeatures which need to be run as Load Tests
   #   and so on...
 ```
 
-**IMPORTANT: Load Patterns**
+## **IMPORTANT:** Load Patterns
 
 Because Perfiz Leverages Gatling, it is important that we understand the [Open vs Closed Worlkload Models](https://gatling.io/docs/current/general/simulation_setup/) and **avoid mixing them**.
 
@@ -81,3 +69,17 @@ Because Perfiz Leverages Gatling, it is important that we understand the [Open v
 * Closed model keywords
   * constantConcurrentUsers
   * rampConcurrentUsers
+
+## Creating multiple configurations
+
+You can create as many Perfiz Configuration files as you like for each setup. Example:
+* Load Test for 15 min in Dev Env
+* Soak Test for 2 hours in Staging Env
+
+**Examples:**
+* [perfiz-demo/perfiz-staging-load-test.yml](https://github.com/znsio/perfiz-demo/blob/main/perfiz-staging-load-test.yml)
+* [perfiz-demo/perfiz-closed-loadpattern.yml](https://github.com/znsio/perfiz-demo/blob/main/perfiz-closed-loadpattern.yml)
+
+Each of these files now allow you to codify your tests and check them in for fellow developers.
+
+The default name for the config file is "perfiz.yml". So when you run a Perfiz Command without a config file argument it will look for 'perfiz.yml' and pick it up.
