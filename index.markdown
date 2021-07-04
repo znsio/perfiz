@@ -1,28 +1,32 @@
 ---
-# Feel free to add content and custom Front Matter to this file.
-# To modify the layout, see https://jekyllrb.com/docs/themes/#overriding-theme-defaults
-
-layout: home
+layout: default
+title: Home
+nav_order: 1
+description: "Perfiz is a Dockerised API Performance Test Setup"
+permalink: /
 ---
-[![CI Build](https://github.com/znsio/perfiz/actions/workflows/CI.yml/badge.svg)](https://github.com/znsio/perfiz/actions/workflows/CI.yml)
 
-# Perfiz - A Dockerised API Performance Test Setup
+# A Dockerised API Performance Test Setup
 * Run Gatling Tests (Karate Gatling at the moment) without Java on your local machine or writing any Scala simulations
 * Visualize your Gatling Performance Test Metrics and Application Metrics side by side in Grafana in real-time
 
 ![Grafana Screenshot](/assets/grafana-test.png)
 
-Jump to [quick-start](https://github.com/znsio/perfiz#quick-start--demo-5-min)
+[Get started now](https://github.com/znsio/perfiz#quick-start--demo-5-min){: .btn .btn-primary .fs-5 .mb-4 .mb-md-0 .mr-2 } [View it on GitHub](//github.com/znsio/perfiz){: .btn .fs-5 .mb-4 .mb-md-0 }
 
-### Under the hood
+[![CI Build](https://github.com/znsio/perfiz/actions/workflows/CI.yml/badge.svg)](https://github.com/znsio/perfiz/actions/workflows/CI.yml)
 
-Below are the projects that Perfiz leverages under the hood. Quite literally Perfiz is "Standing on the shoulders of giants".
+## How does it work?
 
-* Gatling and Karate-Gatling
-* Docker
-* Grafana
-* Prometheus Time Series DB
-* Hooks for CAdvisor and NodeExporter
+Perfiz enables "Shift-Left" Performance Testing by helping you to identify performance issues early in your development cycle.
+
+It leverages Docker to run a uniform setup on your **local machine**
+
+![Perfiz Architecture](/assets/perfiz-architecture.gif)
+
+and on **higher environments**
+
+![Perfiz in Higher Environments](assets/perfiz-in-higher-environment.gif)
 
 ## Tutorials and Exercises
 
