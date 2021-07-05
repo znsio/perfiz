@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Prometheus Configuration
+title: Prometheus Querying and Configuration
 parent: Documentation
 nav_order: 5
 ---
