@@ -20,6 +20,14 @@ Steps to reproduce the behavior:
 **Expected behavior**
 A clear and concise description of what you expected to happen.
 
+**Diagnostic**
+Run below command to gather information about your Perfiz setup
+```shell script
+$PERFIZ_HOME/perfiz.sh diagnostics
+```
+
+If the "diagnostics" command is not available, please [upgrade](https://github.com/znsio/perfiz#updating-perfiz) to latest Perfiz.
+
 **Screenshots**
 If applicable, add screenshots to help explain your problem.
 
