@@ -6,6 +6,8 @@
 .DS_Store
 .m2
 /target
+.jekyll-cache
+_site
 
 ### Gatling ###
 results/
