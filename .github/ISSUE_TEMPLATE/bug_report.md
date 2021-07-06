@@ -20,13 +20,11 @@ Steps to reproduce the behavior:
 **Expected behavior**
 A clear and concise description of what you expected to happen.
 
-**Diagnostic**
+**Diagnostics**
 Run below command to gather information about your Perfiz setup
-```shell script
 $PERFIZ_HOME/perfiz.sh diagnostics
-```
 
-If the "diagnostics" command is not available, please [upgrade](https://github.com/znsio/perfiz#updating-perfiz) to latest Perfiz.
+If the "diagnostics" command is not available in your current version of Perfiz, please upgrade to latest Perfiz - https://github.com/znsio/perfiz#updating-perfiz
 
 **Screenshots**
 If applicable, add screenshots to help explain your problem.
@@ -34,7 +32,6 @@ If applicable, add screenshots to help explain your problem.
 **Desktop (please complete the following information):**
  - OS: [e.g. iOS]
  - Browser [e.g. chrome, safari]
- - Version [e.g. 22]
 
 **Additional context**
 Add any other context about the problem here.
