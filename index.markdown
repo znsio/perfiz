@@ -28,10 +28,8 @@ and on **higher environments**
 
 ![Perfiz in Higher Environments](assets/perfiz-in-higher-environment.gif)
 
-## Developers
+## Contributing
 
-To create a release push an annotated tag. Example:
-```shell
-git tag -a <release version> -m "<release message>"
-git push origin <release version>
-```
+We welcome contributions through
+* <a class="github-button" href="https://github.com/znsio/perfiz/issues" data-icon="octicon-issue-opened" aria-label="Issue ntkme/github-buttons on GitHub">Issues</a>
+* [Pull Requests](https://github.com/znsio/perfiz/pulls) - [Contributing Guide](https://github.com/znsio/perfiz/blob/main/CONTRIBUTING.md)
