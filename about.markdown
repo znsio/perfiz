@@ -22,3 +22,25 @@ While we are opinionated about what a performance test setup should be, it is up
 * **Learning Platform** - Perf Testing is a lot more than just tooling. Also setting up the tools can be quite daunting to people who are new to this area. Developers and Testers can avoid getting stuck in getting their setup right and instead focus on learning how to design, run and analyse Performance Tests. Even as an experienced Perf Tester / Tuner, it may help you experiment quickly and focus on learning about application behavior on your local machine.
 
 In short **use it how you like it**
+
+# What it is?
+
+* Embody **“Shift Left”** strategy by enabling Developers to run Performance Tests on their local machines
+* **Containerize** the setup so that it is equally easy to run on local machine, lower environments and perf test environments
+* **Live Dashboard** that can visualize Load Test metrics and Application metrics together to help correlate load with Application behavior
+* **Re-usable** setup that is agnostic to application tech stack
+* Requires **no / low code** (config only) to leverage API tests or Specs as Perf Test Suite
+* **Pre-configured** setup with Canned Dashboards, Data Source setup, monitoring hooks etc. to help Developers get started quickly
+
+# What it is not?
+
+* Not a replacement for Perf Test Tools. It builds on them.
+* Does not replace perf testing skills
+  * It just makes your life easy in getting your test runs.
+  * You still need to understand load profiles and best practices for running perf tests
+  * You still need to design the tests and what you want to learn from it
+* While it is opinionated about what makes a good test setup
+  * It does not push any specific tools
+  * Examples
+    * We started InfluxDB and then moved to Prometheus, we can support other time series DBs also
+    * We are using Gatling now; however, we may support other tools as we see fit
