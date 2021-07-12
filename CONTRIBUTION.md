@@ -22,6 +22,15 @@ Perfiz consists of
 
 Test your changes with the [Perfiz Demo](https://github.com/znsio/perfiz-demo) branches before pushing
 
+## Releases and Versioning
+
+* The main project and cli projects have independent versioning which follows the standard <major>.<minor>.<patch> format
+* To create a release on any of these projects
+```shell
+git tag -a <release version> -m "<release message>"
+git push origin <release version>
+```
+
 ## Help needed
 
 Please checkout the [the open issues](https://github.com/znsio/perfiz/issues?q=is%3Aopen+is%3Aissue)
