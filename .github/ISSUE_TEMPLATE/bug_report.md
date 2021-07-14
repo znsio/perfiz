@@ -11,6 +11,7 @@ assignees: ''
 A clear and concise description of what the bug is.
 
 **To Reproduce**
+
 Steps to reproduce the behavior:
 1. Go to '...'
 2. Click on '....'
@@ -18,9 +19,11 @@ Steps to reproduce the behavior:
 4. See error
 
 **Expected behavior**
+
 A clear and concise description of what you expected to happen.
 
 **Diagnostics**
+
 Run below command to gather information about your Perfiz setup
 $PERFIZ_HOME/perfiz.sh diagnostics
 
