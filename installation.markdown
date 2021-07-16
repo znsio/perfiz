@@ -8,7 +8,9 @@ nav_order: 2
 
 ## Installation
 
-* **Pre-requisites** - Docker >= 20.10.*
+* **Pre-requisites**
+  * Docker >= 20.10.0
+  * docker-compose >= 1.29.0
 * **Setup Perfiz**
   * Download the latest [Perfiz release zip file](https://github.com/znsio/perfiz/releases) file and unzip to a location of your choice
   * Set ```PERFIZ_HOME``` environment variable and add it to your ```PATH```.
