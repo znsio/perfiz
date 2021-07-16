@@ -26,7 +26,7 @@ services:
     networks:
       - perfiz-network
   cadvisor:
-    image: gcr.io/cadvisor/cadvisor:latest
+    image: "google/cadvisor"
     container_name: cadvisor
     ports:
       - 8082:8080
