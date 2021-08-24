@@ -1,4 +1,4 @@
-[![CI Build](https://github.com/znsio/perfiz/actions/workflows/CI.yml/badge.svg)](https://github.com/znsio/perfiz/actions/workflows/CI.yml)[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=znsio_perfiz&metric=alert_status)](https://sonarcloud.io/dashboard?id=znsio_perfiz)
+[![CI Build](https://github.com/znsio/perfiz/actions/workflows/CI.yml/badge.svg)](https://github.com/znsio/perfiz/actions/workflows/CI.yml) [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=znsio_perfiz&metric=alert_status)](https://sonarcloud.io/dashboard?id=znsio_perfiz)
 
 # Perfiz - A Dockerised API Performance Test Setup
 * Run Gatling Tests (Karate Gatling at the moment) without Java on your local machine or writing any Scala simulations
