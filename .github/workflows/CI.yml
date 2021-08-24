@@ -40,4 +40,4 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: mvn -B -Dsonar.coverage.jacoco.xmlReportPaths=jacoco.xml clean test jacoco:report org.sonarsource.scanner.maven:sonar-maven-plugin:sonar
+        run: mvn -B clean test jacoco:report org.sonarsource.scanner.maven:sonar-maven-plugin:sonar
