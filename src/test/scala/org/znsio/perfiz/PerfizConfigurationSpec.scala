@@ -1,11 +1,15 @@
 package org.znsio.perfiz
 
-import org.junit.Assert.assertNotNull
-import org.junit._
+import org.scalatest.freespec.AnyFreeSpec
 
-class PerfizConfigurationSpec {
-  @Test def `load perfiz configuration yaml`: Unit = {
-    System.setProperty("PERFIZ", this.getClass.getResource("/perfiz.yaml").getPath)
-    assertNotNull(PerfizConfiguration())
+
+class PerfizConfigurationSpec extends AnyFreeSpec {
+  "given valid yaml configuration" - {
+    "when we parse it" - {
+      "should not be null" in {
+        System.setProperty("PERFIZ", this.getClass.getResource("/perfiz.yaml").getPath)
+        assert(PerfizConfiguration() != null)
+      }
+    }
   }
 }
