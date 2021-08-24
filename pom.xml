@@ -72,9 +72,8 @@
     </dependencies>
 
     <build>
-        <testSourceDirectory>
-            src/test/scala
-        </testSourceDirectory>
+        <sourceDirectory>src/main/scala</sourceDirectory>
+        <testSourceDirectory>src/test/scala</testSourceDirectory>
         <testResources>
             <testResource>
                 <directory>${env.KARATE_FEATURES}</directory>
@@ -90,19 +89,11 @@
                 <version>4.5.3</version>
                 <executions>
                     <execution>
-                        <id>scala-compile-first</id>
                         <phase>process-resources</phase>
                         <goals>
                             <goal>add-source</goal>
                             <goal>compile</goal>
-                        </goals>
-                    </execution>
-                    <execution>
-                        <id>scala-test-compile</id>
-                        <phase>process-test-resources</phase>
-                        <goals>
                             <goal>testCompile</goal>
-                            <goal>compile</goal>
                         </goals>
                     </execution>
                 </executions>
