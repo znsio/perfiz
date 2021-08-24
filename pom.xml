@@ -21,6 +21,7 @@
         <sonar.organization>znsio</sonar.organization>
         <sonar.host.url>https://sonarcloud.io</sonar.host.url>
         <sonar.test.inclusions>**/src/**/PerfizSimulation.scala</sonar.test.inclusions>
+        <sonar.coverage.jacoco.xmlReportPaths>target/site/jacoco/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
     </properties>
 
     <repositories>
