@@ -14,7 +14,7 @@ permalink: /
 
 [Get started now](/documentation/quickstart.html){: .btn .btn-primary .fs-5 .mb-4 .mb-md-0 .mr-2 } [View it on GitHub](//github.com/znsio/perfiz){: .btn .fs-5 .mb-4 .mb-md-0 }
 
-[![CI Build](https://github.com/znsio/perfiz/actions/workflows/CI.yml/badge.svg)](https://github.com/znsio/perfiz/actions/workflows/CI.yml)
+[![CI Build](https://github.com/znsio/perfiz/actions/workflows/CI.yml/badge.svg)](https://github.com/znsio/perfiz/actions/workflows/CI.yml) [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=znsio_perfiz&metric=alert_status)](https://sonarcloud.io/dashboard?id=znsio_perfiz)
 
 ## How does it work?
 
