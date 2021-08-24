@@ -1,6 +1,10 @@
 package org.znsio.perfiz
 
+import java.io.{File, FileInputStream}
 import java.util.{ArrayList, List}
+
+import org.yaml.snakeyaml.Yaml
+import org.yaml.snakeyaml.constructor.Constructor
 
 import scala.beans.BeanProperty
 import scala.concurrent.duration.{Duration, FiniteDuration}
@@ -16,6 +20,12 @@ class PerfizConfiguration {
   var gatlingSimulationsDir: String = _
 }
 
+object PerfizConfiguration {
+  def apply(): PerfizConfiguration = new Yaml(new Constructor(classOf[PerfizConfiguration])).load(
+    new FileInputStream(new File(System.getProperty("PERFIZ")))
+  )
+}
+
 class KarateFeature {
   @BeanProperty
   var karateFile: String = _
@@ -24,13 +34,13 @@ class KarateFeature {
   var gatlingSimulationName: String = _
 
   @BeanProperty
-  var loadPattern: List[OpenLoadPattern] = new ArrayList[OpenLoadPattern]()
+  var loadPattern: List[GatlingWorkLoadModelStep] = new ArrayList[GatlingWorkLoadModelStep]()
 
   @BeanProperty
   var uriPatterns: List[String] = new ArrayList[String]()
 }
 
-class OpenLoadPattern {
+class GatlingWorkLoadModelStep {
   @BeanProperty
   var patternType: String = _
 
@@ -49,7 +59,7 @@ class OpenLoadPattern {
   def durationAsFiniteDuration = Duration(duration).asInstanceOf[FiniteDuration]
 }
 
-object OpenLoadPattern {
+object OpenWorkloadModel {
   val NothingFor = "nothingFor"
   val AtOnceUsers = "atOnceUsers"
   val RampUsers = "rampUsers"
@@ -58,7 +68,7 @@ object OpenLoadPattern {
   val HeavisideUsers = "heavisideUsers"
 }
 
-object ClosedLoadPattern {
+object ClosedWorkloadModel {
   val ConstantConcurrentUsers = "constantConcurrentUsers"
   val RampConcurrentUsers = "rampConcurrentUsers"
 }

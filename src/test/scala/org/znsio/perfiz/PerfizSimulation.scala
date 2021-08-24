@@ -1,24 +1,18 @@
 package org.znsio.perfiz
 
-import java.io.{File, FileInputStream}
-
 import com.intuit.karate.gatling.PreDef._
 import io.gatling.core.Predef._
 import io.gatling.core.controller.inject.open._
 import io.gatling.core.structure.PopulationBuilder
-import org.yaml.snakeyaml.Yaml
-import org.yaml.snakeyaml.constructor.Constructor
-import org.znsio.perfiz.ClosedLoadPattern.{ConstantConcurrentUsers, RampConcurrentUsers}
-import org.znsio.perfiz.OpenLoadPattern._
+import org.znsio.perfiz.ClosedWorkloadModel._
+import org.znsio.perfiz.OpenWorkloadModel._
 
 import scala.jdk.CollectionConverters._
 import scala.language.postfixOps
 
 class PerfizSimulation extends Simulation {
 
-  private val configuration: PerfizConfiguration = new Yaml(new Constructor(classOf[PerfizConfiguration])).load(
-    new FileInputStream(new File(System.getProperty("PERFIZ")))
-  )
+  private val configuration: PerfizConfiguration = PerfizConfiguration()
 
   private val builders: List[PopulationBuilder] = configuration.getKarateFeatures().asScala.toList.map(karateFeatureConfig => {
     val openInjectionSteps = karateFeatureConfig.getLoadPattern().asScala.toList.filter(loadPattern => {

@@ -1,0 +1,17 @@
+karateFeaturesDir: "karate-features"
+karateFeatures:
+  - karateFile: "petstore.feature"
+    gatlingSimulationName: "AllGet"
+    loadPattern:
+      - patternType: "nothingFor"
+        duration: "15 seconds"
+      - patternType: "constantUsersPerSec"
+        userCount: "1"
+        duration: "30 seconds"
+        randomised: "false"
+      - patternType: "constantUsersPerSec"
+        userCount: "3"
+        duration: "15 seconds"
+        randomised: "false"
+    uriPatterns:
+      - "/pets/{id}"
