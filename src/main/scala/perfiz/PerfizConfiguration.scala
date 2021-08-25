@@ -5,9 +5,14 @@ import java.util.{ArrayList, List}
 
 import org.yaml.snakeyaml.Yaml
 import org.yaml.snakeyaml.constructor.Constructor
+import org.znsio.perfiz.ClosedWorkloadModel._
+import org.znsio.perfiz.OpenWorkloadModel._
 
 import scala.beans.BeanProperty
 import scala.concurrent.duration.{Duration, FiniteDuration}
+
+import scala.jdk.CollectionConverters._
+import scala.language.postfixOps
 
 class PerfizConfiguration {
   @BeanProperty
@@ -18,6 +23,10 @@ class PerfizConfiguration {
   var karateFeaturesDir: String = _
   @BeanProperty
   var gatlingSimulationsDir: String = _
+
+  def karateFeaturesAsList = {
+    karateFeatures.asScala.toList
+  }
 }
 
 object PerfizConfiguration {
@@ -38,6 +47,16 @@ class KarateFeature {
 
   @BeanProperty
   var uriPatterns: List[String] = new ArrayList[String]()
+
+  def openWorkloadModelSteps = loadPattern.asScala.toList.filter(loadPattern => {
+    val openModelLoadPatterns = scala.List(NothingFor, AtOnceUsers, RampUsers, ConstantUsersPerSecond, RampUsersPerSecond, HeavisideUsers)
+    openModelLoadPatterns.contains(loadPattern.patternType)
+  })
+
+  def closedWorkloadModelSteps = loadPattern.asScala.toList.filter(loadPattern => {
+    val closedModelLoadPatterns = scala.List(ConstantConcurrentUsers, RampConcurrentUsers)
+    closedModelLoadPatterns.contains(loadPattern.patternType)
+  })
 }
 
 class GatlingWorkLoadModelStep {

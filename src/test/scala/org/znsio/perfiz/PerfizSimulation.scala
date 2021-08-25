@@ -14,11 +14,8 @@ class PerfizSimulation extends Simulation {
 
   private val configuration: PerfizConfiguration = PerfizConfiguration()
 
-  private val builders: List[PopulationBuilder] = configuration.getKarateFeatures().asScala.toList.map(karateFeatureConfig => {
-    val openInjectionSteps = karateFeatureConfig.getLoadPattern().asScala.toList.filter(loadPattern => {
-      val openModelLoadPatterns = List(NothingFor, AtOnceUsers, RampUsers, ConstantUsersPerSecond, RampUsersPerSecond, HeavisideUsers)
-      openModelLoadPatterns.contains(loadPattern.patternType)
-    }).map(f = loadPattern => {
+  private val builders: List[PopulationBuilder] = configuration.karateFeaturesAsList.map(karateFeatureConfig => {
+    val openInjectionSteps = karateFeatureConfig.openWorkloadModelSteps.map(f = loadPattern => {
       val openInjectionStep = loadPattern.getPatternType() match {
         case NothingFor => nothingFor(loadPattern.durationAsFiniteDuration)
         case AtOnceUsers => atOnceUsers(loadPattern.getUserCount())
@@ -41,10 +38,7 @@ class PerfizSimulation extends Simulation {
         }
       } else openInjectionStep
     })
-    val closedInjectionSteps = karateFeatureConfig.getLoadPattern().asScala.toList.filter(loadPattern => {
-      val closedModelLoadPatterns = List(ConstantConcurrentUsers, RampConcurrentUsers)
-      closedModelLoadPatterns.contains(loadPattern.patternType)
-    }).map(f = loadPattern => {
+    val closedInjectionSteps = karateFeatureConfig.closedWorkloadModelSteps.map(f = loadPattern => {
       loadPattern.getPatternType() match {
         case ConstantConcurrentUsers => constantConcurrentUsers(loadPattern.getUserCount()) during
           loadPattern.durationAsFiniteDuration
