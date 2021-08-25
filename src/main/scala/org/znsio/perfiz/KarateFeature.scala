@@ -22,12 +22,12 @@ class KarateFeature {
   @BeanProperty
   var uriPatterns: List[String] = new ArrayList[String]()
 
-  def openWorkloadModelSteps = loadPattern.asScala.toList.filter(loadPattern => {
+  def openWorkloadModelSteps: Seq[GatlingWorkLoadModelStep] = loadPattern.asScala.toList.filter(loadPattern => {
     val openModelLoadPatterns = scala.List(NothingFor, AtOnceUsers, RampUsers, ConstantUsersPerSecond, RampUsersPerSecond, HeavisideUsers)
     openModelLoadPatterns.contains(loadPattern.patternType)
   })
 
-  def closedWorkloadModelSteps = loadPattern.asScala.toList.filter(loadPattern => {
+  def closedWorkloadModelSteps: Seq[GatlingWorkLoadModelStep] = loadPattern.asScala.toList.filter(loadPattern => {
     val closedModelLoadPatterns = scala.List(ConstantConcurrentUsers, RampConcurrentUsers)
     closedModelLoadPatterns.contains(loadPattern.patternType)
   })

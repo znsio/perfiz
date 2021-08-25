@@ -1,4 +1,5 @@
 karateFeaturesDir: "karate-features"
+gatlingSimulationsDir: "src/gatling"
 karateFeatures:
   - karateFile: "petstore.feature"
     gatlingSimulationName: "AllGet"

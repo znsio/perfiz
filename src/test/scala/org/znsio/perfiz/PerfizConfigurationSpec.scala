@@ -20,6 +20,10 @@ class PerfizConfigurationSpec extends AnyFreeSpec {
       "should extract karate features dir" in {
         assert(configuration.karateFeaturesDir.equals("karate-features"))
       }
+
+      "should extract gatling simulations dir" in {
+        assert(configuration.gatlingSimulationsDir.equals("src/gatling"))
+      }
     }
   }
 }
