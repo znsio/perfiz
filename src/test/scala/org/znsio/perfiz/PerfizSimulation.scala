@@ -43,7 +43,7 @@ class PerfizSimulation extends Simulation {
         case ConstantConcurrentUsers => constantConcurrentUsers(loadPattern.getUserCount()) during
           loadPattern.durationAsFiniteDuration
         case RampConcurrentUsers => rampConcurrentUsers(loadPattern.getUserCount()) to
-          loadPattern.getTargetUserCount() during
+          loadPattern.getTargetUserCount().toInt during
           loadPattern.durationAsFiniteDuration
       }
     })

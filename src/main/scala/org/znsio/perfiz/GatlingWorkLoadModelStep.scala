@@ -17,7 +17,7 @@ class GatlingWorkLoadModelStep {
   var randomised: Boolean = _
 
   @BeanProperty
-  var targetUserCount: Int = _
+  var targetUserCount: Double = _
 
   def durationAsFiniteDuration = Duration(duration).asInstanceOf[FiniteDuration]
 }
