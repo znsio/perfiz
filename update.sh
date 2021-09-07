@@ -58,7 +58,7 @@ fi
 echo "Installing"
 cd $PERFIZ_HOME
 ls -a $PERFIZ_HOME | grep -v perfiz.zip | grep -v total | grep -v .m2 | grep -v '^.$' | grep -v '^..$' | xargs rm -fR
-tar -xvf "$PERFIZ_HOME/perfiz.zip" -C "$PERFIZ_HOME"
+unzip "$PERFIZ_HOME/perfiz.zip" -C "$PERFIZ_HOME"
 rm "$PERFIZ_HOME/perfiz.zip"
 
 echo "Done..."
