@@ -14,6 +14,7 @@ services:
       - ./prometheus-metrics-monitor/grafana/provisioning:/etc/grafana/provisioning
     networks:
       - perfiz-network
+    user: "${UID}:${GID}"
   prometheus:
     image: "prom/prometheus"
     ports:
@@ -25,6 +26,7 @@ services:
       - cadvisor
     networks:
       - perfiz-network
+    user: "${UID}:${GID}"
   cadvisor:
     image: "google/cadvisor"
     container_name: cadvisor
@@ -38,6 +40,7 @@ services:
       - /var/lib/docker/:/var/lib/docker:ro
     networks:
       - perfiz-network
+    user: "${UID}:${GID}"
   influxgraph:
     environment:
       INFLUXGRAPH_GUNICORN_LOGLEVEL: "debug"
@@ -50,6 +53,7 @@ services:
       - "8000:80"
     networks:
       - perfiz-network
+    user: "${UID}:${GID}"
   influxdb:
     environment:
       INFLUXDB_REPORTING_DISABLED: "true"
@@ -64,6 +68,7 @@ services:
       - ${PROJECT_DIR}/perfiz/influxdb_data:/var/lib/influxdb
     networks:
       - perfiz-network
+    user: "${UID}:${GID}"
 
 networks:
   perfiz-network:
