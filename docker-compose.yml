@@ -40,7 +40,6 @@ services:
       - /var/lib/docker/:/var/lib/docker:ro
     networks:
       - perfiz-network
-    user: "${UID}:${GID}"
   influxgraph:
     environment:
       INFLUXGRAPH_GUNICORN_LOGLEVEL: "debug"
@@ -53,7 +52,6 @@ services:
       - "8000:80"
     networks:
       - perfiz-network
-    user: "${UID}:${GID}"
   influxdb:
     environment:
       INFLUXDB_REPORTING_DISABLED: "true"
