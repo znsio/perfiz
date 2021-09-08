@@ -59,7 +59,7 @@ gatlingScenarios: #List of KarateFeatures which need to be run as Load Tests
 
 ## Deprecations
 
-As of [release 0.0.32](https://github.com/znsio/perfiz/releases/tag/0.0.32), below config params as deprecated. Please updated with latest config params.
+As of [release 0.0.32](https://github.com/znsio/perfiz/releases/tag/0.0.32), below config params are deprecated. Please update your perfiz config.
 * ```karateFeatures``` renamed to ```gatlingScenarios```
 * ```gatlingSimulationName``` renamed to ```gatlingScenarioName```
 
