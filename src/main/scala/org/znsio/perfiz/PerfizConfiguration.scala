@@ -11,17 +11,22 @@ import scala.jdk.CollectionConverters._
 import scala.language.postfixOps
 
 class PerfizConfiguration {
+  @deprecated("Will be removed in upcoming version. Replaced by gatlingScenarios.")
   @BeanProperty
-  var karateFeatures: List[KarateFeature] = new ArrayList[KarateFeature]()
+  var karateFeatures: List[GatlingScenario] = new ArrayList[GatlingScenario]()
+  @BeanProperty
+  var gatlingScenarios: List[GatlingScenario] = new ArrayList[GatlingScenario]()
   @BeanProperty
   var karateEnv: String = _
   @BeanProperty
   var karateFeaturesDir: String = _
   @BeanProperty
   var gatlingSimulationsDir: String = _
+  @BeanProperty
+  var gatlingSimulationClass: String = _
 
-  def karateFeaturesAsList = {
-    karateFeatures.asScala.toList
+  def gatlingScenariosAsList: scala.List[GatlingScenario] = {
+    karateFeatures.asScala.toList ++ gatlingScenarios.asScala.toList
   }
 }
 

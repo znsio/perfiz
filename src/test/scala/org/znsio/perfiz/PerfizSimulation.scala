@@ -14,8 +14,8 @@ class PerfizSimulation extends Simulation {
 
   private val configuration: PerfizConfiguration = PerfizConfiguration()
 
-  private val builders: List[PopulationBuilder] = configuration.karateFeaturesAsList.map(karateFeatureConfig => {
-    val openInjectionSteps = karateFeatureConfig.openWorkloadModelSteps.map(f = loadPattern => {
+  private val builders: List[PopulationBuilder] = configuration.gatlingScenariosAsList.map(gatlingScenario => {
+    val openInjectionSteps = gatlingScenario.openWorkloadModelSteps.map(f = loadPattern => {
       val openInjectionStep = loadPattern.getPatternType() match {
         case NothingFor => nothingFor(loadPattern.durationAsFiniteDuration)
         case AtOnceUsers => atOnceUsers(loadPattern.getUserCount())
@@ -38,7 +38,7 @@ class PerfizSimulation extends Simulation {
         }
       } else openInjectionStep
     })
-    val closedInjectionSteps = karateFeatureConfig.closedWorkloadModelSteps.map(f = loadPattern => {
+    val closedInjectionSteps = gatlingScenario.closedWorkloadModelSteps.map(f = loadPattern => {
       loadPattern.getPatternType() match {
         case ConstantConcurrentUsers => constantConcurrentUsers(loadPattern.getUserCount()) during
           loadPattern.durationAsFiniteDuration
@@ -48,16 +48,16 @@ class PerfizSimulation extends Simulation {
       }
     })
     val protocol = karateProtocol(
-      karateFeatureConfig.getUriPatterns().asScala.map { uriPattern => uriPattern -> Nil }.toList: _*
+      gatlingScenario.getUriPatterns().asScala.map { uriPattern => uriPattern -> Nil }.toList: _*
     )
     if (!openInjectionSteps.isEmpty) {
-      scenario(karateFeatureConfig.getGatlingSimulationName()).
-        exec(karateFeature("classpath:" + karateFeatureConfig.getKarateFile())).
+      scenario(gatlingScenario.name()).
+        exec(karateFeature("classpath:" + gatlingScenario.getKarateFile())).
         inject(openInjectionSteps).
         protocols(protocol)
     } else {
-      scenario(karateFeatureConfig.getGatlingSimulationName()).
-        exec(karateFeature("classpath:" + karateFeatureConfig.getKarateFile())).
+      scenario(gatlingScenario.name()).
+        exec(karateFeature("classpath:" + gatlingScenario.getKarateFile())).
         inject(closedInjectionSteps).
         protocols(protocol)
     }

@@ -1,0 +1,3 @@
+karateFeaturesDir: "karate-features"
+gatlingSimulationsDir: "src/gatling"
+gatlingSimulationClass: "org.znsio.perfiz.PerfizSimulation"
