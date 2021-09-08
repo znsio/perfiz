@@ -12,6 +12,8 @@ Perfiz Configuration File is where we define
 * URL Patterns
 * and more
 
+Each Perfiz Config file is translated to a single Gatling Simulation. Within each simulation you can include multiple karate feature files as separate scenarios.
+
 Below are all the parameters in Perfiz Config File.
 
 ```yaml
@@ -19,10 +21,10 @@ karateFeaturesDir: #Relative Path from you repo root to the directory containing
                    #This is also the directory which contains your karate-config.js, Perfiz will make sure this file gets picked up by Karate Gatling
                    #Example: src/test/karateFeatures
 karateEnv: #This sets the karate.env. Provide any env that is defined in your karate-config.js that resides in the above "karateFeaturesDir"
-karateFeatures: #List of KarateFeatures which need to be run as Load Tests
+gatlingScenarios: #List of KarateFeatures which need to be run as Load Tests
   - karateFile: #Relative Path from the above karateFeaturesDir to a specific Karate Feature file
                 #Example: bookings/movies/reservation.feature, if your overall directory structure is <repo-root>/src/test/karateFeatures/bookings/movies/reservation.feature
-    gatlingSimulationName: #A name under which Gatling will aggregate test metrics, prefer a short descriptive name without spaces
+    gatlingScenarioName: #A name under which Gatling will aggregate test metrics, prefer a short descriptive name without spaces
                            #You will be able to access this in Grafana under the same name through InfluxDB DataSource
     loadPattern: #List of loads in the order that they need to be generated
       - patternType: #Modelled closely after Gatling - https://gatling.io/docs/current/general/simulation_setup/
@@ -47,13 +49,19 @@ karateFeatures: #List of KarateFeatures which need to be run as Load Tests
       - "/book/{isbn}/author/{authorId}" #If you are familiar with karate-gatling then this is similar to Karate Protocol - https://intuit.github.io/karate/karate-gatling/#usage
   #You can keep adding more such Karate Files
   # - karateFile: test.feature
-  #   gatlingSimulationName: test
+  #   gatlingScenarioName: test
   #   loadPattern:
   #     - patternType: "rampUsers"
   #     - userCount: "60"
   #     - duration: "30 minutes"
   #   and so on...
 ```
+
+## Deprecations
+
+As of release 0.0.32, below config params as deprecated. Please updated with latest config params.
+* ```karateFeatures``` renamed to ```gatlingScenarios```
+* ```gatlingSimulationName``` renamed to ```gatlingScenarioName```
 
 ## **IMPORTANT:** Load Patterns
 
