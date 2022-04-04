@@ -16,7 +16,7 @@
         <java.version>1.8</java.version>
         <maven.compiler.version>3.8.1</maven.compiler.version>
         <karate.version>1.1.0</karate.version>
-        <gatling.plugin.version>3.1.2</gatling.plugin.version>
+        <gatling.plugin.version>4.1.5</gatling.plugin.version>
         <sonar.organization>znsio</sonar.organization>
         <sonar.host.url>https://sonarcloud.io</sonar.host.url>
         <sonar.test.inclusions>**/src/**/PerfizSimulation.scala</sonar.test.inclusions>
